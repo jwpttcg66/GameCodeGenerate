@@ -14,6 +14,8 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation group: 'org.apache.poi', name: 'poi', version: '3.17'
+	implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '3.17'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
