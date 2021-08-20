@@ -11,6 +11,11 @@ import java.util.Map;
 public class SheetResult {
 
     /**
+     * sheet名字
+     */
+    private String sheetName;
+
+    /**
      * field缓存
      */
     private Map<String, SheetCellHeader> cache = new HashMap<String, SheetCellHeader>();
@@ -47,5 +52,13 @@ public class SheetResult {
 
     public SheetCellHeader getSheetCellHeaderByIndex(int index){
         return indexCache.get(index);
+    }
+
+    public String getSheetName() {
+        return sheetName;
+    }
+
+    public void setSheetName(String sheetName) {
+        this.sheetName = sheetName;
     }
 }

@@ -108,8 +108,6 @@ public class XSSFWorkBookExcelPraser {
 
     public JSONArray generateJson(SheetResult sheetResult){
         JSONArray jsonpObject = new JSonGenerater().generateJson(sheetResult);
-
-        System.out.println(jsonpObject);
         return jsonpObject;
     }
 
