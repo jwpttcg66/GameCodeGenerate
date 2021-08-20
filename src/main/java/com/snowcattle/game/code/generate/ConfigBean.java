@@ -5,8 +5,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ConfigurationProperties()
+@ConfigurationProperties
 public class ConfigBean {
+    public ConfigBean(){
+        System.out.println("初始化");
+    }
 
     public String getJsonPath() {
         return jsonPath;

@@ -117,7 +117,7 @@ public class XSSFWorkBookExcelPraser {
         JSONArray jsonArray = generateJson(sheetResult);
 //        new Config().getJsonPath();
 //        new JSONWriter()
-        String dirPath = EnvParam.getJsonPath();
+//        String dirPath = EnvParam.getJsonPath();
 //        String filePath = "example.json";
 //        try {
 //            new JSonFileWriter().writeFile(dirPath, filePath, jsonArray);
