@@ -33,7 +33,7 @@ public class XSSFWorkBookExcelPraser {
             for(int i = 0; i<size; i++){
                 XSSFSheet sheet = workbook.getSheetAt(i);
                 String sheetName = sheet.getSheetName();
-                System.out.println("解析文件" + excelPath + "表名" + sheetName );
+                System.out.println("解析文件: " + excelPath + " 表名 " + sheetName );
 
                 //前三行为解析头部
                 int headRowSize = 3;
