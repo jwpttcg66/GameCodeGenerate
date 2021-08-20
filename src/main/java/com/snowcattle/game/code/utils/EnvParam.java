@@ -1,5 +1,8 @@
 package com.snowcattle.game.code.utils;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+
 /**
  * 游戏启动参数
  */
