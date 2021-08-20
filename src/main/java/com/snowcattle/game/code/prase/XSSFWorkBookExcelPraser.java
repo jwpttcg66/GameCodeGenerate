@@ -2,9 +2,13 @@ package com.snowcattle.game.code.prase;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONPObject;
+import com.alibaba.fastjson.JSONWriter;
+import com.snowcattle.game.code.config.Config;
+import com.snowcattle.game.code.generate.JSonFileWriter;
 import com.snowcattle.game.code.generate.JSonGenerater;
 import com.snowcattle.game.code.utils.CheckException;
 
+import com.snowcattle.game.code.utils.EnvParam;
 import com.snowcattle.game.code.utils.WorkbookUtils;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
@@ -35,7 +39,8 @@ public class XSSFWorkBookExcelPraser {
                 SheetResult sheetResult = new SheetResult();
                 initHeader(sheet, sheetResult);
                 praseBody(sheet, sheetResult);
-                generateJson(sheetResult);
+//                generateJson(sheetResult);
+                writeJsonFile(sheetResult);
             }
             fileInputStream.close();
         } catch (Exception e) {
@@ -102,9 +107,23 @@ public class XSSFWorkBookExcelPraser {
 
     }
 
-    public void generateJson(SheetResult sheetResult){
+    public JSONArray generateJson(SheetResult sheetResult){
         JSONArray jsonpObject = new JSonGenerater().generateJson(sheetResult);
+
         System.out.println(jsonpObject);
+        return jsonpObject;
     }
 
+    public void writeJsonFile(SheetResult sheetResult){
+        JSONArray jsonArray = generateJson(sheetResult);
+//        new JSONWriter()
+//        String dirPath = EnvParam.getParam("jsonPath");
+//        String dirPath = Config.getJsonPath();
+//        String filePath = "example.json";
+//        try {
+//            new JSonFileWriter().writeFile(dirPath, filePath, jsonArray);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+    }
 }
