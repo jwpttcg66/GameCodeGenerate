@@ -1,22 +1,39 @@
 package com.snowcattle.game.code.prase;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
- * 进行sheet检查
+ * 进行sheet检查，缓存解析结果
  */
 public class SheetResult {
 
-    private Map<String, ExcelCellHeader> cache = new HashMap<String, ExcelCellHeader>();
-
-    public boolean checkField(ExcelCellHeader excelCellHeader){
-        if(cache.containsKey(excelCellHeader.getEnglishName())){
+    /**
+     * field缓存
+     */
+    private Map<String, SheetCellHeader> cache = new HashMap<String, SheetCellHeader>();
+    /**
+     * cell列索引缓存
+     */
+    private Map<Integer, SheetCellHeader> indexCache = new HashMap<Integer, SheetCellHeader>();
+    /**
+     * 行数据
+     */
+    private List<SheetRow> rowList = new ArrayList<SheetRow>();
+    public boolean checkField(SheetCellHeader sheetCellHeader, int col){
+        if(cache.containsKey(sheetCellHeader.getEnglishName())){
             return false;
         }
 
-        cache.put(excelCellHeader.getEnglishName(), excelCellHeader);
+        cache.put(sheetCellHeader.getEnglishName(), sheetCellHeader);
+        indexCache.put(col, sheetCellHeader);
         return true;
+    }
+
+    public void addSheerRow(SheetRow sheetRow){
+        rowList.add(sheetRow);
     }
 
 }

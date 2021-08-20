@@ -1,10 +1,13 @@
 package com.snowcattle.game.code.utils;
 
+import com.sun.java.accessibility.util.AccessibilityListenerList;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.IOException;
@@ -31,4 +34,34 @@ public class WorkbookUtils {
 //        }
         throw new IllegalArgumentException("你的excel版本目前poi解析不了");
     }
+
+    /**
+     * 把单元格的内容转为字符串
+     * @param cell 单元格
+     * @return 字符串
+     */
+    public static String getString(XSSFCell cell) {
+
+        String result = "";
+        switch (cell.getCellType()){
+            case Cell.CELL_TYPE_STRING:
+                result = cell.getStringCellValue();
+                break;
+            case Cell.CELL_TYPE_BOOLEAN:
+                result = String.valueOf(cell.getBooleanCellValue());
+                break;
+            case Cell.CELL_TYPE_BLANK:
+                result = "";
+                break;
+            case Cell.CELL_TYPE_NUMERIC:
+                result = String.valueOf(cell.getNumericCellValue());
+                break;
+            case Cell.CELL_TYPE_FORMULA:
+                result = "CELL_TYPE_FORMULA";
+                break;
+        }
+
+        return result;
+    }
+
 }

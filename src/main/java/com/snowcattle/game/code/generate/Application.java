@@ -9,12 +9,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class Application {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws  Exception{
 		SpringApplication.run(Application.class, args);
 		doCmd(args);
 	}
 
-	public static void doCmd(String[] args){
+	public static void doCmd(String[] args) throws  Exception{
 		//输出启动参数，第一个参数为命令
 		String cmd = args[0];
 		if(cmd.equals(StartCmdEnum.generateJson.toString())){
