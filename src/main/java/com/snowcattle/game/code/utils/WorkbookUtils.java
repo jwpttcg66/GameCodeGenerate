@@ -13,6 +13,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PushbackInputStream;
+import java.text.NumberFormat;
 
 public class WorkbookUtils {
     /**
@@ -54,10 +55,14 @@ public class WorkbookUtils {
                 result = "";
                 break;
             case Cell.CELL_TYPE_NUMERIC:
-                result = String.valueOf(cell.getNumericCellValue());
+//                result = String.valueOf(cell.getNumericCellValue());
+                NumberFormat nf = NumberFormat.getInstance();
+                nf.setGroupingUsed(false);
+                result = String.valueOf(nf.format(cell.getNumericCellValue()));
+
                 break;
             case Cell.CELL_TYPE_FORMULA:
-                result = "CELL_TYPE_FORMULA";
+                result = String.valueOf(cell.getCellFormula());
                 break;
         }
 
