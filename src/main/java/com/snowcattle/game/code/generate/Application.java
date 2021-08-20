@@ -9,11 +9,14 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
-@EnableConfigurationProperties({ConfigBean.class})
 public class Application {
 
 	public static void main(String[] args) throws  Exception{
 		ConfigurableApplicationContext applicationContext = SpringApplication.run(Application.class, args);
+
+		ConfigBean configBean = (ConfigBean) applicationContext.getBean("configBean");
+		EnvParam.setConfigBean(configBean);
+
 		doCmd(args);
 	}
 
