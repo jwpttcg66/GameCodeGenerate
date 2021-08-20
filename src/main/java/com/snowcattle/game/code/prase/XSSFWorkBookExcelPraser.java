@@ -124,11 +124,11 @@ public class XSSFWorkBookExcelPraser {
         return jsonpObject;
     }
 
-    public void writeJsonFile(SheetResult sheetResult){
+    public void writeJsonFile(String relativePath, SheetResult sheetResult){
         JSONArray jsonArray = generateJson(sheetResult);
 
         String dirPath = EnvParam.getJsonPath();
-        String filePath = "example.json";
+        String filePath = relativePath;
         try {
             new JSonFileWriter().writeFile(dirPath, filePath, jsonArray);
         } catch (IOException e) {

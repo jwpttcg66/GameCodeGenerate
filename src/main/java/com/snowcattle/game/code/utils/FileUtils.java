@@ -22,9 +22,17 @@ public class FileUtils {
             String filePath = file.getPath();
             String relativePath = filePath.replace(path+File.separatorChar,"");
             System.out.println("find file relativePath: " + relativePath);
-            fileMap.put(filePath, file);
+            fileMap.put(relativePath, file);
         }
         return fileMap;
+    }
+
+    public static String getDestRootPath(String path){
+        int index = path.indexOf(File.separatorChar);
+        if(index < 0){
+            return "";
+        }
+        return path.substring(0, index+1);
     }
 
 }

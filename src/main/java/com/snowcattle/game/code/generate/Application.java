@@ -32,18 +32,19 @@ public class Application {
 		String cmd = args[0];
 		if(cmd.equals(StartCmdEnum.generateJson.toString())){
 
-//			String excelFilePath = "/Users/jiangwenping/data/gameley/github/GameCodeGenerate/src/main/resources/example.xlsx";
-//			System.out.println("start cmd " + StartCmdEnum.generateJson.toString());
-//			new XSSFWorkBookExcelPraser().praseExcel(excelFilePath);
 			String dirPath = EnvParam.getxlsPath();
 			Map<String, File> allFiles = FileUtils.recursiveFiles(dirPath);
-			for(File file: allFiles.values()){
+			for(String key: allFiles.keySet()){
+				File file = allFiles.get(key);
 				XSSFWorkBookExcelPraser xssfWorkBookExcelPraser = new XSSFWorkBookExcelPraser();
 				xssfWorkBookExcelPraser.praseExcel(file.getPath());
 				List<SheetResult> resultList = xssfWorkBookExcelPraser.getSheetResultList();
 
 				for(SheetResult sheetResult: resultList){
-					xssfWorkBookExcelPraser.writeJsonFile(sheetResult);
+					String sheetName = sheetResult.getSheetName()+ ".json";
+					String filePath = FileUtils.getDestRootPath(key);
+
+					xssfWorkBookExcelPraser.writeJsonFile(filePath + sheetName, sheetResult);
 				}
 			}
 		}

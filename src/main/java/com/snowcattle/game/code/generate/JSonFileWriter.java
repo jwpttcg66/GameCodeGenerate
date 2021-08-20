@@ -15,11 +15,15 @@ public class JSonFileWriter {
         if(file.exists()){
             file.delete();
         }
+        File parentFile = file.getParentFile();
+        if(!parentFile.exists()){
+            parentFile.mkdirs();
+        }
         FileOutputStream fileOutputStream = new FileOutputStream(file);
         String jsonString = JSON.toJSONString(jsonArray, SerializerFeature.PrettyFormat, SerializerFeature.WriteMapNullValue,
                 SerializerFeature.WriteDateUseDateFormat);
         fileOutputStream.write(jsonString.getBytes());
         fileOutputStream.close();
-        System.out.println("File " + filePath + "generate 完成");
+        System.out.println("File " + filePath + " generate 完成");
     }
 }
