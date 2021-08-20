@@ -46,4 +46,8 @@ public class EnvParam {
         return configBean.getJsonPath();
     }
 
+    public static String getxlsPath(){
+        return configBean.getXlsPath();
+    }
+
 }

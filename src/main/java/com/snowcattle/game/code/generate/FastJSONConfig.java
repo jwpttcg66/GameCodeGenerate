@@ -18,7 +18,7 @@ public class FastJSONConfig {
      */
     @Bean
     public void fastJsonHttpMessageConverters() {
-        System.out.println("format");
+//        System.out.println("format");
 //        FastJsonHttpMessageConverter fastJsonHttpMessageConverter = new FastJsonHttpMessageConverter();
 //        FastJsonConfig fastJsonConfig = new FastJsonConfig();
 //        List<PageAttributes.MediaType> mediaTypes = new ArrayList<>();

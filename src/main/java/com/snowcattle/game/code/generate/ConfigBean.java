@@ -10,7 +10,7 @@ import org.springframework.core.env.Environment;
 @ConfigurationProperties
 public class ConfigBean {
     public ConfigBean(){
-        System.out.println("初始化");
+        System.out.println("配置初始化");
     }
 
     @Autowired
@@ -26,5 +26,22 @@ public class ConfigBean {
     }
 
     private String jsonPath;
+
+    public String getXlsPath() {
+        return xlsPath;
+    }
+
+    @Value("${xlsPath}")
+    public void setXlsPath(String xlsPath) {
+        this.xlsPath = xlsPath;
+    }
+
+    /**
+     *  excel目录
+     */
+    private String xlsPath;
+
+
+
 }
 
