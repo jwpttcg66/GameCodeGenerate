@@ -1,5 +1,8 @@
 package com.snowcattle.game.code.prase;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONPObject;
+import com.snowcattle.game.code.generate.JSonGenerater;
 import com.snowcattle.game.code.utils.CheckException;
 
 import com.snowcattle.game.code.utils.WorkbookUtils;
@@ -32,6 +35,7 @@ public class XSSFWorkBookExcelPraser {
                 SheetResult sheetResult = new SheetResult();
                 initHeader(sheet, sheetResult);
                 praseBody(sheet, sheetResult);
+                generateJson(sheetResult);
             }
             fileInputStream.close();
         } catch (Exception e) {
@@ -98,5 +102,9 @@ public class XSSFWorkBookExcelPraser {
 
     }
 
+    public void generateJson(SheetResult sheetResult){
+        JSONArray jsonpObject = new JSonGenerater().generateJson(sheetResult);
+        System.out.println(jsonpObject);
+    }
 
 }

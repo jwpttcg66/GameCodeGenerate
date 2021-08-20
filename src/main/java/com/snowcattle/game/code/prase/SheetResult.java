@@ -18,6 +18,7 @@ public class SheetResult {
      * cell列索引缓存
      */
     private Map<Integer, SheetCellHeader> indexCache = new HashMap<Integer, SheetCellHeader>();
+
     /**
      * 行数据
      */
@@ -36,4 +37,15 @@ public class SheetResult {
         rowList.add(sheetRow);
     }
 
+    public List<SheetRow> getRowList() {
+        return rowList;
+    }
+
+    public void setRowList(List<SheetRow> rowList) {
+        this.rowList = rowList;
+    }
+
+    public SheetCellHeader getSheetCellHeaderByIndex(int index){
+        return indexCache.get(index);
+    }
 }
