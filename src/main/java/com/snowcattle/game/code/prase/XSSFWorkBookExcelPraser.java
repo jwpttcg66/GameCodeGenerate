@@ -15,15 +15,26 @@ import org.apache.poi.xssf.usermodel.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * excel2007解析器
  */
 public class XSSFWorkBookExcelPraser {
 
-
-
     private int headRowSize = 3;
+
+    private List<SheetResult> sheetResultList = new ArrayList<SheetResult>();
+
+    public List<SheetResult> getSheetResultList() {
+        return sheetResultList;
+    }
+
+    public void setSheetResultList(List<SheetResult> sheetResultList) {
+        this.sheetResultList = sheetResultList;
+    }
 
     public void praseExcel(String excelPath) throws CheckException {
         try {
@@ -36,10 +47,12 @@ public class XSSFWorkBookExcelPraser {
                 System.out.println("解析文件: " + excelPath + " 表名 " + sheetName );
 
                 SheetResult sheetResult = new SheetResult();
+                sheetResult.setSheetName(sheetName);
                 initHeader(sheet, sheetResult);
                 praseBody(sheet, sheetResult);
+                sheetResultList.add(sheetResult);
 //                generateJson(sheetResult);
-                writeJsonFile(sheetResult);
+//                writeJsonFile(sheetResult);
             }
             fileInputStream.close();
         } catch (Exception e) {
@@ -106,7 +119,7 @@ public class XSSFWorkBookExcelPraser {
 
     }
 
-    public JSONArray generateJson(SheetResult sheetResult){
+    private JSONArray generateJson(SheetResult sheetResult){
         JSONArray jsonpObject = new JSonGenerater().generateJson(sheetResult);
         return jsonpObject;
     }

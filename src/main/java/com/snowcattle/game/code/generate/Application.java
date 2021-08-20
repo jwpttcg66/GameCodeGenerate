@@ -1,5 +1,6 @@
 package com.snowcattle.game.code.generate;
 
+import com.snowcattle.game.code.prase.SheetResult;
 import com.snowcattle.game.code.prase.XSSFWorkBookExcelPraser;
 import com.snowcattle.game.code.utils.EnvParam;
 import com.snowcattle.game.code.utils.FileUtils;
@@ -10,6 +11,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.ConfigurableApplicationContext;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 @SpringBootApplication
@@ -35,7 +37,15 @@ public class Application {
 //			new XSSFWorkBookExcelPraser().praseExcel(excelFilePath);
 			String dirPath = EnvParam.getxlsPath();
 			Map<String, File> allFiles = FileUtils.recursiveFiles(dirPath);
-			
+			for(File file: allFiles.values()){
+				XSSFWorkBookExcelPraser xssfWorkBookExcelPraser = new XSSFWorkBookExcelPraser();
+				xssfWorkBookExcelPraser.praseExcel(file.getPath());
+				List<SheetResult> resultList = xssfWorkBookExcelPraser.getSheetResultList();
+
+				for(SheetResult sheetResult: resultList){
+					xssfWorkBookExcelPraser.writeJsonFile(sheetResult);
+				}
+			}
 		}
 	}
 
