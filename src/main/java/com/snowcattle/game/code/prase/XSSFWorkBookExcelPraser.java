@@ -7,6 +7,7 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFName;
+import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -34,6 +35,11 @@ public class XSSFWorkBookExcelPraser {
                 String sheetName = sheet.getSheetName();
                 System.out.println("解析文件" + excelPath + "表名" + sheetName );
 
+                //前三行为解析头部
+                int headRowSize = 3;
+                XSSFRow row = sheet.getRow(0);
+                int colSize = row.getPhysicalNumberOfCells();
+                System.out.println(colSize);
 //                row = hssfSheet.getRow(i);
 //                for(int j =0;j<row.getLastCellNum();j++){
 //                    HSSFCell cell = row.getCell((short)j);//Cell
