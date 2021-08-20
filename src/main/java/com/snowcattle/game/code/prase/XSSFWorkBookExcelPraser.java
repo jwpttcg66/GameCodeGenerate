@@ -3,7 +3,6 @@ package com.snowcattle.game.code.prase;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONPObject;
 import com.alibaba.fastjson.JSONWriter;
-import com.snowcattle.game.code.config.Config;
 import com.snowcattle.game.code.generate.JSonFileWriter;
 import com.snowcattle.game.code.generate.JSonGenerater;
 import com.snowcattle.game.code.utils.CheckException;
@@ -116,9 +115,9 @@ public class XSSFWorkBookExcelPraser {
 
     public void writeJsonFile(SheetResult sheetResult){
         JSONArray jsonArray = generateJson(sheetResult);
+//        new Config().getJsonPath();
 //        new JSONWriter()
-//        String dirPath = EnvParam.getParam("jsonPath");
-//        String dirPath = Config.getJsonPath();
+        String dirPath = EnvParam.getJsonPath();
 //        String filePath = "example.json";
 //        try {
 //            new JSonFileWriter().writeFile(dirPath, filePath, jsonArray);
