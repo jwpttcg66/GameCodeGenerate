@@ -5,6 +5,7 @@ import java.util.Date;
 /**
 * the code is generated , do't modify this code
 * ${(classComment)!''}
+* @date ${.now?string('yyyy-MM-dd')}
 */
 public class ${className} {
 

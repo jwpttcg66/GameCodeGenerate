@@ -8,6 +8,7 @@ import com.snowcattle.game.code.prase.XSSFWorkBookExcelPraser;
 import com.snowcattle.game.code.utils.CheckException;
 import com.snowcattle.game.code.config.EnvParam;
 import com.snowcattle.game.code.utils.FileUtils;
+import com.snowcattle.game.code.utils.SqlUtils;
 import com.snowcattle.game.code.utils.StartCmdEnum;
 import com.snowcattle.game.code.writer.java.JavaPoGenerater;
 import com.snowcattle.game.code.writer.json.JSonGenerater;
@@ -72,6 +73,7 @@ public class Application {
 				List<ColumnDefinition>  columnDefinitionList = createStatement.getColumnDefinitions();
 				for(ColumnDefinition columnDefinition: columnDefinitionList){
 					System.out.println("表名：" + tableName + " 列名 " + columnDefinition.getColumnName() + " 类型 " + columnDefinition.getColDataType());
+					System.out.println(SqlUtils.findSqlColnamePoFileTypeName(columnDefinition.getColDataType().toString()));
 				}
 
 			}
