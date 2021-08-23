@@ -4,7 +4,9 @@ import java.util.Date;
 
 /**
 * the code is generated , do't modify this code
-* ${(classComment)!''}
+<#if classComment??>
+* ${classComment}
+</#if>
 * @date ${.now?string('yyyy-MM-dd')}
 */
 public class ${className} {
