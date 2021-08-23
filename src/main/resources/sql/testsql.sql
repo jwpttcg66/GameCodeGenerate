@@ -1,3 +1,4 @@
+
 CREATE TABLE `testsql` (
   `Id` int(11) NOT NULL,
   `name` tinytext,
