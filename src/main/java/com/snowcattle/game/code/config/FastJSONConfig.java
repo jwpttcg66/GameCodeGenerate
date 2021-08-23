@@ -1,4 +1,4 @@
-package com.snowcattle.game.code.generate;
+package com.snowcattle.game.code.config;
 
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;

@@ -4,14 +4,12 @@ import com.snowcattle.game.code.prase.GlobalSheetCheck;
 import com.snowcattle.game.code.prase.SheetResult;
 import com.snowcattle.game.code.prase.XSSFWorkBookExcelPraser;
 import com.snowcattle.game.code.utils.CheckException;
-import com.snowcattle.game.code.utils.EnvParam;
+import com.snowcattle.game.code.config.EnvParam;
 import com.snowcattle.game.code.utils.FileUtils;
 import com.snowcattle.game.code.utils.StartCmdEnum;
 import com.snowcattle.game.code.writer.json.JSonGenerater;
-import jdk.nashorn.internal.ir.debug.JSONWriter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import java.io.File;
