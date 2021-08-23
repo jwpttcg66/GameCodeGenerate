@@ -23,7 +23,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `testsql`;
 CREATE TABLE `testsql` (
                            `Id` int(11) NOT NULL,
-                           `name` tinytext,
+                           `name` tinytext NOT NULL COMMENT '名字',
                            `varCh` varchar(255) DEFAULT NULL,
                            `bigI` bigint(20) DEFAULT NULL,
                            PRIMARY KEY (`Id`)

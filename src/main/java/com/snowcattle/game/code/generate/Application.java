@@ -1,6 +1,7 @@
 package com.snowcattle.game.code.generate;
 
 import com.google.common.base.Charsets;
+import com.google.common.base.Joiner;
 import com.google.common.io.Files;
 import com.snowcattle.game.code.prase.GlobalSheetCheck;
 import com.snowcattle.game.code.prase.SheetResult;
@@ -21,6 +22,7 @@ import net.sf.jsqlparser.util.TablesNamesFinder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.util.StringUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -74,11 +76,30 @@ public class Application {
 				for(ColumnDefinition columnDefinition: columnDefinitionList){
 					System.out.println("表名：" + tableName + " 列名 " + columnDefinition.getColumnName() + " 类型 " + columnDefinition.getColDataType());
 					System.out.println(SqlUtils.findSqlColnamePoFileTypeName(columnDefinition.getColDataType().toString()));
+					//获取注释
+					List<String>  stringList = columnDefinition.getColumnSpecs();
+					if(stringList != null && stringList.size() > 0) {
+
+						String commment = Joiner.on(",").join(stringList);
+						if(commment.contains("comment")){
+							//找到紧随其后的注释
+							String commentString = null;
+
+							for(int i = 0; i < stringList.size(); i++){
+								String string = stringList.get(i);
+								if(string.contains("comment")){
+									commentString = stringList.get(i+1);
+									break;
+								}
+							}
+//							System.out.println("找到注释" + commentString);
+						}
+					}
+
 				}
 
 			}
 		}
-//		System.out.println(sqlString);
 
 	}
 
