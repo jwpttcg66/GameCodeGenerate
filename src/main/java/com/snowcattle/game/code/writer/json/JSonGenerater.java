@@ -5,8 +5,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONPObject;
 import com.snowcattle.game.code.prase.SheetResult;
 import com.snowcattle.game.code.prase.SheetRow;
+import com.snowcattle.game.code.utils.EnvParam;
 import org.springframework.boot.autoconfigure.jsonb.JsonbAutoConfiguration;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -14,7 +16,7 @@ import java.util.List;
  */
 public class JSonGenerater {
 
-    public JSONArray generateJson(SheetResult sheetResult){
+    private JSONArray generateJson(SheetResult sheetResult){
 
         JSONArray jsonArray = new JSONArray();
         List<SheetRow > sheetRowList = sheetResult.getRowList();
@@ -29,6 +31,18 @@ public class JSonGenerater {
             jsonArray.add(jsonObject);
         }
         return jsonArray;
+    }
+
+    public void writeJsonFile(String relativePath, SheetResult sheetResult){
+        JSONArray jsonArray = generateJson(sheetResult);
+
+        String dirPath = EnvParam.getJsonPath();
+        String filePath = relativePath;
+        try {
+            new JSonFileWriter().writeFile(dirPath, filePath, jsonArray);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

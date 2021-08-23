@@ -20,4 +20,27 @@ public class FieldParam {
      */
     private String fileldComment;
 
+    public String getFiledName() {
+        return filedName;
+    }
+
+    public void setFiledName(String filedName) {
+        this.filedName = filedName;
+    }
+
+    public String getFiledType() {
+        return filedType;
+    }
+
+    public void setFiledType(String filedType) {
+        this.filedType = filedType;
+    }
+
+    public String getFileldComment() {
+        return fileldComment;
+    }
+
+    public void setFileldComment(String fileldComment) {
+        this.fileldComment = fileldComment;
+    }
 }

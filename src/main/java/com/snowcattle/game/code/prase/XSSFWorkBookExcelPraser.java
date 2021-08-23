@@ -108,23 +108,6 @@ public class XSSFWorkBookExcelPraser {
 
     }
 
-    private JSONArray generateJson(SheetResult sheetResult){
-        JSONArray jsonpObject = new JSonGenerater().generateJson(sheetResult);
-        return jsonpObject;
-    }
-
-    public void writeJsonFile(String relativePath, SheetResult sheetResult){
-        JSONArray jsonArray = generateJson(sheetResult);
-
-        String dirPath = EnvParam.getJsonPath();
-        String filePath = relativePath;
-        try {
-            new JSonFileWriter().writeFile(dirPath, filePath, jsonArray);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public List<SheetResult> getSheetResultList() {
         return sheetResultList;
     }

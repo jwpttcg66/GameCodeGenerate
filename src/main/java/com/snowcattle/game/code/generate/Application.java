@@ -7,6 +7,8 @@ import com.snowcattle.game.code.utils.CheckException;
 import com.snowcattle.game.code.utils.EnvParam;
 import com.snowcattle.game.code.utils.FileUtils;
 import com.snowcattle.game.code.utils.StartCmdEnum;
+import com.snowcattle.game.code.writer.json.JSonGenerater;
+import jdk.nashorn.internal.ir.debug.JSONWriter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -51,7 +53,26 @@ public class Application {
 						throw new CheckException(" sheetName: " + sheetName + " is exsit");
 					}
 					globalSheetCheck.addSheetName(sheetName);
-					xssfWorkBookExcelPraser.writeJsonFile(filePath + sheetName, sheetResult);
+					new JSonGenerater().writeJsonFile(filePath + sheetName, sheetResult);
+				}
+			}
+		}else if(cmd.equals(StartCmdEnum.generateJsonPo)){
+			String dirPath = EnvParam.getxlsPath();
+			Map<String, File> allFiles = FileUtils.recursiveFiles(dirPath);
+			for(String key: allFiles.keySet()){
+				File file = allFiles.get(key);
+				XSSFWorkBookExcelPraser xssfWorkBookExcelPraser = new XSSFWorkBookExcelPraser();
+				xssfWorkBookExcelPraser.praseExcel(file.getPath());
+				List<SheetResult> resultList = xssfWorkBookExcelPraser.getSheetResultList();
+
+				for(SheetResult sheetResult: resultList){
+					String sheetName = sheetResult.getSheetName()+ ".json";
+					String filePath = FileUtils.getDestRootPath(key);
+					if(globalSheetCheck.isExsitSheet(sheetName)){
+						throw new CheckException(" sheetName: " + sheetName + " is exsit");
+					}
+					globalSheetCheck.addSheetName(sheetName);
+//					xssfWorkBookExcelPraser.writeJsonFile(filePath + sheetName, sheetResult);
 				}
 			}
 		}
