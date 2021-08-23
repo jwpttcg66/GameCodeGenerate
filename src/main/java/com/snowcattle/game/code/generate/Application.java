@@ -14,6 +14,7 @@ import com.snowcattle.game.code.writer.json.JSonGenerater;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 import net.sf.jsqlparser.statement.Statement;
+import net.sf.jsqlparser.statement.create.table.ColumnDefinition;
 import net.sf.jsqlparser.statement.create.table.CreateTable;
 import net.sf.jsqlparser.util.TablesNamesFinder;
 import org.springframework.boot.SpringApplication;
@@ -65,8 +66,14 @@ public class Application {
 				CreateTable selectStatement = (CreateTable) statement;
 				TablesNamesFinder tablesNamesFinder = new TablesNamesFinder();
 				List<String> tableList = tablesNamesFinder.getTableList(selectStatement);
-//				System.out.println(tableList.size());
-				System.out.println(tableList.get(0).toString());
+				String tableName = tableList.get(0).toString();
+				System.out.println("解析表名：" + tableName + " ");
+
+				List<ColumnDefinition>  columnDefinitionList = ((CreateTable) statement).getColumnDefinitions();
+				for(ColumnDefinition columnDefinition: columnDefinitionList){
+					System.out.println("表名：" + tableName + " 列名 " + columnDefinition.getColumnName() + " 类型 " + columnDefinition.getColDataType());
+				}
+
 			}
 		}
 //		System.out.println(sqlString);
