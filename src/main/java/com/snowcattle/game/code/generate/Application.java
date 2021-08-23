@@ -34,15 +34,20 @@ public class Application {
 
 		//输出启动参数，第一个参数为命令
 		String cmd = args[0];
-		GlobalSheetCheck globalSheetCheck = new GlobalSheetCheck();
 
 		if(cmd.equals(StartCmdEnum.generateJson.toString())){
 			exportJSONAndJava(true, false);
 		}else if(cmd.equals(StartCmdEnum.generateJavaPo.toString())){
 			exportJSONAndJava(false, true);
-		}else if(cmd.equals(StartCmdEnum.getGenerateJsonJavaPo.toString())){
+		}else if(cmd.equals(StartCmdEnum.generateJsonAndJavaPo.toString())){
 			exportJSONAndJava(true, true);
+		}else if(cmd.equals(StartCmdEnum.generateaSqlPo.toString())){
+			exportSqlPo();
 		}
+	}
+
+	public static void exportSqlPo(){
+		
 	}
 
 	public static void exportJSONAndJava(boolean jsonFlag, boolean javaFlag) throws IOException, CheckException {
