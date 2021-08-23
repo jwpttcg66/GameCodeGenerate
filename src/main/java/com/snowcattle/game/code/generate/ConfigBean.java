@@ -7,14 +7,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
 @Configuration
-@ConfigurationProperties
+//@ConfigurationProperties
 public class ConfigBean {
     public ConfigBean(){
         System.out.println("配置初始化");
     }
 
-    @Autowired
-    Environment environment;
+//    @Autowired
+//    Environment environment;
 
     public String getJsonPath() {
         return jsonPath;
@@ -42,6 +42,18 @@ public class ConfigBean {
     private String xlsPath;
 
 
+    /**
+     * java生成的数据字典目录
+     */
+    private String javaDictPoPath;
 
+    public String getJavaDictPoPath() {
+        return javaDictPoPath;
+    }
+
+    @Value("${javaDictPoPath}")
+    public void setJavaDictPoPath(String javaDictPoPath) {
+        this.javaDictPoPath = javaDictPoPath;
+    }
 }
 
