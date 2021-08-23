@@ -3,7 +3,6 @@ package com.snowcattle.game.code.writer.java;
 import com.snowcattle.game.code.config.EnvParam;
 import com.snowcattle.game.code.prase.SheetCellHeader;
 import com.snowcattle.game.code.prase.SheetResult;
-import com.snowcattle.game.code.utils.FileUtils;
 import freemarker.template.*;
 import org.springframework.util.ResourceUtils;
 
@@ -37,8 +36,6 @@ public class JavaPoGenerater {
 
         String dirPath = EnvParam.getJavaDictPath();
         String filePath = relativePath;
-        //这里需要转化下包名，还有excel路径
-        filePath = FileUtils.getEndDestRootPath(filePath);
         try {
             new JavaPoWriter().writeFile(dirPath, filePath, cfg, poClassParam);
         } catch (IOException e) {
