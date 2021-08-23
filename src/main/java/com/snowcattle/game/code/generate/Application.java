@@ -1,5 +1,7 @@
 package com.snowcattle.game.code.generate;
 
+import com.google.common.base.Charsets;
+import com.google.common.io.Files;
 import com.snowcattle.game.code.prase.GlobalSheetCheck;
 import com.snowcattle.game.code.prase.SheetResult;
 import com.snowcattle.game.code.prase.XSSFWorkBookExcelPraser;
@@ -10,11 +12,9 @@ import com.snowcattle.game.code.utils.StartCmdEnum;
 import com.snowcattle.game.code.writer.java.JavaPoGenerater;
 import com.snowcattle.game.code.writer.json.JSonGenerater;
 import net.sf.jsqlparser.JSQLParserException;
-import net.sf.jsqlparser.parser.CCJSqlParser;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.create.table.CreateTable;
-import net.sf.jsqlparser.statement.select.Select;
 import net.sf.jsqlparser.util.TablesNamesFinder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -55,15 +55,18 @@ public class Application {
 		}
 	}
 
-	public static void exportSqlPo() throws FileNotFoundException, JSQLParserException {
+	public static void exportSqlPo() throws IOException, JSQLParserException {
 		String sqlPath = "/Users/jiangwenping/data/gameley/github/GameCodeGenerate/src/main/resources/sql/testsql.sql";
 		File file = new File(sqlPath);
-		FileInputStream fileInputStream = new FileInputStream(file);
-		Statement statement  = CCJSqlParserUtil.parse(fileInputStream);
-		CreateTable selectStatement = (CreateTable) statement;
-		TablesNamesFinder tablesNamesFinder = new TablesNamesFinder();
-		List<String> tableList = tablesNamesFinder.getTableList(selectStatement);
-		System.out.println(tableList);
+		String sqlString = new String(Files.toByteArray(file), Charsets.UTF_8).toLowerCase();
+		List<Statement> statements  = CCJSqlParserUtil.parseStatements(sqlString).getStatements();
+		for(Statement statement: statements) {
+			CreateTable selectStatement = (CreateTable) statement;
+			TablesNamesFinder tablesNamesFinder = new TablesNamesFinder();
+			List<String> tableList = tablesNamesFinder.getTableList(selectStatement);
+			System.out.println(tableList.size());
+		}
+		System.out.println(sqlString);
 
 	}
 
