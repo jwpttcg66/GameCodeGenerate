@@ -9,11 +9,19 @@ import com.snowcattle.game.code.utils.FileUtils;
 import com.snowcattle.game.code.utils.StartCmdEnum;
 import com.snowcattle.game.code.writer.java.JavaPoGenerater;
 import com.snowcattle.game.code.writer.json.JSonGenerater;
+import net.sf.jsqlparser.JSQLParserException;
+import net.sf.jsqlparser.parser.CCJSqlParser;
+import net.sf.jsqlparser.parser.CCJSqlParserUtil;
+import net.sf.jsqlparser.statement.Statement;
+import net.sf.jsqlparser.statement.select.Select;
+import net.sf.jsqlparser.util.TablesNamesFinder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -46,8 +54,17 @@ public class Application {
 		}
 	}
 
-	public static void exportSqlPo(){
-		
+	public static void exportSqlPo() throws FileNotFoundException, JSQLParserException {
+		String sqlPath = "/Users/jiangwenping/data/gameley/github/GameCodeGenerate/src/main/resources/sql/testsql.sql";
+		File file = new File(sqlPath);
+		FileInputStream fileInputStream = new FileInputStream(file);
+//		Statement statement  = CCJSqlParserUtil.parse(fileInputStream);
+		Statement statement  = CCJSqlParserUtil.parse("SELECT * FROM tab1");
+		Select selectStatement = (Select) statement;
+		TablesNamesFinder tablesNamesFinder = new TablesNamesFinder();
+		List<String> tableList = tablesNamesFinder.getTableList(selectStatement);
+		System.out.println(tableList);
+
 	}
 
 	public static void exportJSONAndJava(boolean jsonFlag, boolean javaFlag) throws IOException, CheckException {
