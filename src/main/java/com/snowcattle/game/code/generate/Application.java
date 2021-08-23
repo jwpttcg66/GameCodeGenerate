@@ -63,13 +63,13 @@ public class Application {
 		List<Statement> statements  = CCJSqlParserUtil.parseStatements(sqlString).getStatements();
 		for(Statement statement: statements) {
 			if(statement instanceof  CreateTable) {
-				CreateTable selectStatement = (CreateTable) statement;
+				CreateTable createStatement = (CreateTable) statement;
 				TablesNamesFinder tablesNamesFinder = new TablesNamesFinder();
-				List<String> tableList = tablesNamesFinder.getTableList(selectStatement);
+				List<String> tableList = tablesNamesFinder.getTableList(createStatement);
 				String tableName = tableList.get(0).toString();
 				System.out.println("解析表名：" + tableName + " ");
 
-				List<ColumnDefinition>  columnDefinitionList = ((CreateTable) statement).getColumnDefinitions();
+				List<ColumnDefinition>  columnDefinitionList = createStatement.getColumnDefinitions();
 				for(ColumnDefinition columnDefinition: columnDefinitionList){
 					System.out.println("表名：" + tableName + " 列名 " + columnDefinition.getColumnName() + " 类型 " + columnDefinition.getColDataType());
 				}
