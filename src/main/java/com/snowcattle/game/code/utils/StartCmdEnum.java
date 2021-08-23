@@ -6,6 +6,6 @@ package com.snowcattle.game.code.utils;
  */
 public enum StartCmdEnum {
     generateJson,
-    generateJsonPo,
+    generateJavaPo,
     generateaSqlPo
 }

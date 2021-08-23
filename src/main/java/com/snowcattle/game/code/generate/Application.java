@@ -7,6 +7,7 @@ import com.snowcattle.game.code.utils.CheckException;
 import com.snowcattle.game.code.config.EnvParam;
 import com.snowcattle.game.code.utils.FileUtils;
 import com.snowcattle.game.code.utils.StartCmdEnum;
+import com.snowcattle.game.code.writer.java.JavaPoGenerater;
 import com.snowcattle.game.code.writer.json.JSonGenerater;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -54,7 +55,7 @@ public class Application {
 					new JSonGenerater().writeJsonFile(filePath + sheetName, sheetResult);
 				}
 			}
-		}else if(cmd.equals(StartCmdEnum.generateJsonPo)){
+		}else if(cmd.equals(StartCmdEnum.generateJavaPo.toString())){
 			String dirPath = EnvParam.getxlsPath();
 			Map<String, File> allFiles = FileUtils.recursiveFiles(dirPath);
 			for(String key: allFiles.keySet()){
@@ -70,7 +71,7 @@ public class Application {
 						throw new CheckException(" sheetName: " + sheetName + " is exsit");
 					}
 					globalSheetCheck.addSheetName(sheetName);
-//					xssfWorkBookExcelPraser.writeJsonFile(filePath + sheetName, sheetResult);
+					new JavaPoGenerater().writeJavaFile(filePath + sheetName, sheetResult);
 				}
 			}
 		}
