@@ -61,12 +61,15 @@ public class Application {
 		String sqlString = new String(Files.toByteArray(file), Charsets.UTF_8).toLowerCase();
 		List<Statement> statements  = CCJSqlParserUtil.parseStatements(sqlString).getStatements();
 		for(Statement statement: statements) {
-			CreateTable selectStatement = (CreateTable) statement;
-			TablesNamesFinder tablesNamesFinder = new TablesNamesFinder();
-			List<String> tableList = tablesNamesFinder.getTableList(selectStatement);
-			System.out.println(tableList.size());
+			if(statement instanceof  CreateTable) {
+				CreateTable selectStatement = (CreateTable) statement;
+				TablesNamesFinder tablesNamesFinder = new TablesNamesFinder();
+				List<String> tableList = tablesNamesFinder.getTableList(selectStatement);
+//				System.out.println(tableList.size());
+				System.out.println(tableList.get(0).toString());
+			}
 		}
-		System.out.println(sqlString);
+//		System.out.println(sqlString);
 
 	}
 
