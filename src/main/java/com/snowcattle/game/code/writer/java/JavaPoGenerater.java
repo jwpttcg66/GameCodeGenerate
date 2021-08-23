@@ -6,6 +6,7 @@ import com.snowcattle.game.code.prase.SheetResult;
 import com.snowcattle.game.code.writer.json.JSonFileWriter;
 import freemarker.core.ParseException;
 import freemarker.template.*;
+import org.springframework.util.ResourceUtils;
 
 import java.io.*;
 
@@ -17,8 +18,9 @@ public class JavaPoGenerater {
 
         try {
             Template temp = null;
-            File loadTemplateFile = new File("test.ftl");
-            cfg.setDirectoryForTemplateLoading(loadTemplateFile);
+            File loadTemplateFile = ResourceUtils.getFile("classpath:ftl/test.ftl");
+
+            cfg.setDirectoryForTemplateLoading(loadTemplateFile.getParentFile());
 
             writeJavaFile(relativePath);
 

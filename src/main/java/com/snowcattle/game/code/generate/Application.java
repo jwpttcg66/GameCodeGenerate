@@ -65,7 +65,7 @@ public class Application {
 				List<SheetResult> resultList = xssfWorkBookExcelPraser.getSheetResultList();
 
 				for(SheetResult sheetResult: resultList){
-					String sheetName = sheetResult.getSheetName()+ ".json";
+					String sheetName = sheetResult.getSheetName()+ ".java";
 					String filePath = FileUtils.getDestRootPath(key);
 					if(globalSheetCheck.isExsitSheet(sheetName)){
 						throw new CheckException(" sheetName: " + sheetName + " is exsit");
