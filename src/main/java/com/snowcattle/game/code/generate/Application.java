@@ -61,7 +61,7 @@ public class Application {
 				if(jsonFlag){
 					String fileEndName = ".json";
 					newSheeTName = sheetName + fileEndName;
-					String destFileRootPath = FileUtils.getDestRootPath(key);
+					String destFileRootPath = FileUtils.getFrontDestRootPath(key);
 					if(globalSheetCheck.isExsitSheet(newSheeTName)){
 						throw new CheckException(" newSheeTName: " + sheetName + " is exsit");
 					}
@@ -72,7 +72,7 @@ public class Application {
 				if(javaFlag) {
 					String fileEndName = ".java";
 					newSheeTName = sheetName + fileEndName;
-					String destFileRootPath = FileUtils.getDestRootPath(key);
+					String destFileRootPath = FileUtils.getFrontDestRootPath(key);
 					if(globalSheetCheck.isExsitSheet(newSheeTName)){
 						throw new CheckException(" newSheeTName: " + sheetName + " is exsit");
 					}

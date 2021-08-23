@@ -27,13 +27,32 @@ public class FileUtils {
         return fileMap;
     }
 
-    public static String getDestRootPath(String path){
+    /**
+     * 获取文件相对路径的前面路径
+     * @param path
+     * @return
+     */
+    public static String getFrontDestRootPath(String path){
         int index = path.indexOf(File.separatorChar);
         if(index < 0){
             return "";
         }
         return path.substring(0, index+1);
     }
+
+    /**
+     * 获取文件相对路径的后面路径
+     * @param path
+     * @return
+     */
+    public static String getEndDestRootPath(String path){
+        int index = path.indexOf(File.separatorChar);
+        if(index < 0){
+            return path;
+        }
+        return path.substring(index+1, path.length());
+    }
+
 
     public static void doFileMakeDirs(File file){
         if(file.exists()){
