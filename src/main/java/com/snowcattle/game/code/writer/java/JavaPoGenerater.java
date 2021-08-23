@@ -20,6 +20,7 @@ public class JavaPoGenerater {
             Template temp = null;
             File loadTemplateFile = ResourceUtils.getFile("classpath:ftl/test.ftl");
 
+            //设置freemaker 文件加载目录
             cfg.setDirectoryForTemplateLoading(loadTemplateFile.getParentFile());
 
             writeJavaFile(relativePath);
