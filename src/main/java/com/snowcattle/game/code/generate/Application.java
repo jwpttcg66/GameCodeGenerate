@@ -14,6 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -36,43 +37,49 @@ public class Application {
 		GlobalSheetCheck globalSheetCheck = new GlobalSheetCheck();
 
 		if(cmd.equals(StartCmdEnum.generateJson.toString())){
-
-			String dirPath = EnvParam.getxlsPath();
-			Map<String, File> allFiles = FileUtils.recursiveFiles(dirPath);
-			for(String key: allFiles.keySet()){
-				File file = allFiles.get(key);
-				XSSFWorkBookExcelPraser xssfWorkBookExcelPraser = new XSSFWorkBookExcelPraser();
-				xssfWorkBookExcelPraser.praseExcel(file.getPath());
-				List<SheetResult> resultList = xssfWorkBookExcelPraser.getSheetResultList();
-
-				for(SheetResult sheetResult: resultList){
-					String sheetName = sheetResult.getSheetName()+ ".json";
-					String destFileRootPath = FileUtils.getDestRootPath(key);
-					if(globalSheetCheck.isExsitSheet(sheetName)){
-						throw new CheckException(" sheetName: " + sheetName + " is exsit");
-					}
-					globalSheetCheck.addSheetName(sheetName);
-					new JSonGenerater().writeJsonFile(destFileRootPath + sheetName, sheetResult);
-				}
-			}
+			exportJSONAndJava(true, false);
 		}else if(cmd.equals(StartCmdEnum.generateJavaPo.toString())){
-			String dirPath = EnvParam.getxlsPath();
-			Map<String, File> allFiles = FileUtils.recursiveFiles(dirPath);
-			for(String key: allFiles.keySet()){
-				File file = allFiles.get(key);
-				XSSFWorkBookExcelPraser xssfWorkBookExcelPraser = new XSSFWorkBookExcelPraser();
-				xssfWorkBookExcelPraser.praseExcel(file.getPath());
-				List<SheetResult> resultList = xssfWorkBookExcelPraser.getSheetResultList();
+			exportJSONAndJava(false, true);
+		}else if(cmd.equals(StartCmdEnum.getGenerateJsonJavaPo.toString())){
+			exportJSONAndJava(true, true);
+		}
+	}
 
-				for(SheetResult sheetResult: resultList){
-					String sheetName = sheetResult.getSheetName()+ ".java";
+	public static void exportJSONAndJava(boolean jsonFlag, boolean javaFlag) throws IOException, CheckException {
+		GlobalSheetCheck globalSheetCheck = new GlobalSheetCheck();
+		String dirPath = EnvParam.getxlsPath();
+		Map<String, File> allFiles = FileUtils.recursiveFiles(dirPath);
+		for(String key: allFiles.keySet()){
+			File file = allFiles.get(key);
+			XSSFWorkBookExcelPraser xssfWorkBookExcelPraser = new XSSFWorkBookExcelPraser();
+			xssfWorkBookExcelPraser.praseExcel(file.getPath());
+			//解析所有sheet
+			List<SheetResult> resultList = xssfWorkBookExcelPraser.getSheetResultList();
+			for(SheetResult sheetResult: resultList){
+				String sheetName = sheetResult.getSheetName();
+				String newSheeTName = sheetName;
+				if(jsonFlag){
+					String fileEndName = ".json";
+					newSheeTName = sheetName + fileEndName;
 					String destFileRootPath = FileUtils.getDestRootPath(key);
-					if(globalSheetCheck.isExsitSheet(sheetName)){
-						throw new CheckException(" sheetName: " + sheetName + " is exsit");
+					if(globalSheetCheck.isExsitSheet(newSheeTName)){
+						throw new CheckException(" newSheeTName: " + sheetName + " is exsit");
 					}
-					globalSheetCheck.addSheetName(sheetName);
-					new JavaPoGenerater().writeJavaPoFile(destFileRootPath + sheetName, sheetResult);
+					globalSheetCheck.addSheetName(newSheeTName);
+					new JSonGenerater().writeJsonFile(destFileRootPath + newSheeTName, sheetResult);
 				}
+
+				if(javaFlag) {
+					String fileEndName = ".java";
+					newSheeTName = sheetName + fileEndName;
+					String destFileRootPath = FileUtils.getDestRootPath(key);
+					if(globalSheetCheck.isExsitSheet(newSheeTName)){
+						throw new CheckException(" newSheeTName: " + sheetName + " is exsit");
+					}
+					globalSheetCheck.addSheetName(newSheeTName);
+					new JavaPoGenerater().writeJavaPoFile(destFileRootPath + newSheeTName, sheetResult);
+				}
+
 			}
 		}
 	}

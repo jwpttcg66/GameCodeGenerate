@@ -3,7 +3,7 @@ package ${packageName};
 import java.util.Date;
 
 /**
-* the code is generated , do't modfy this code
+* the code is generated , do't modify this code
 * ${(classComment)!''}
 */
 public class ${className} {
