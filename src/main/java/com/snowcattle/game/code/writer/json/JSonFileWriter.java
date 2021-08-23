@@ -3,6 +3,7 @@ package com.snowcattle.game.code.writer.json;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.snowcattle.game.code.utils.FileUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -12,13 +13,7 @@ public class JSonFileWriter {
 
     public void writeFile(String  rootPath , String filePath, JSONArray jsonArray) throws IOException {
         File file  = new File(rootPath + File.separatorChar + filePath);
-        if(file.exists()){
-            file.delete();
-        }
-        File parentFile = file.getParentFile();
-        if(!parentFile.exists()){
-            parentFile.mkdirs();
-        }
+        FileUtils.doFileMakeDirs(file);
         FileOutputStream fileOutputStream = new FileOutputStream(file);
         String jsonString = JSON.toJSONString(jsonArray, SerializerFeature.PrettyFormat, SerializerFeature.WriteMapNullValue,
                 SerializerFeature.WriteDateUseDateFormat);

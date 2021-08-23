@@ -47,12 +47,12 @@ public class Application {
 
 				for(SheetResult sheetResult: resultList){
 					String sheetName = sheetResult.getSheetName()+ ".json";
-					String filePath = FileUtils.getDestRootPath(key);
+					String destFileRootPath = FileUtils.getDestRootPath(key);
 					if(globalSheetCheck.isExsitSheet(sheetName)){
 						throw new CheckException(" sheetName: " + sheetName + " is exsit");
 					}
 					globalSheetCheck.addSheetName(sheetName);
-					new JSonGenerater().writeJsonFile(filePath + sheetName, sheetResult);
+					new JSonGenerater().writeJsonFile(destFileRootPath + sheetName, sheetResult);
 				}
 			}
 		}else if(cmd.equals(StartCmdEnum.generateJavaPo.toString())){
@@ -66,12 +66,12 @@ public class Application {
 
 				for(SheetResult sheetResult: resultList){
 					String sheetName = sheetResult.getSheetName()+ ".java";
-					String filePath = FileUtils.getDestRootPath(key);
+					String destFileRootPath = FileUtils.getDestRootPath(key);
 					if(globalSheetCheck.isExsitSheet(sheetName)){
 						throw new CheckException(" sheetName: " + sheetName + " is exsit");
 					}
 					globalSheetCheck.addSheetName(sheetName);
-					new JavaPoGenerater().writeJavaFile(filePath + sheetName, sheetResult);
+					new JavaPoGenerater().writeJavaPoFile(destFileRootPath + sheetName, sheetResult);
 				}
 			}
 		}

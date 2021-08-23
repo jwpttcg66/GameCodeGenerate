@@ -7,7 +7,7 @@ public class SheetCellHeader {
 
     private String chineseName;
     private String englishName;
-    private String fieldName;
+    private String fieldType;
 
 
     public String getChineseName() {
@@ -26,12 +26,12 @@ public class SheetCellHeader {
         this.englishName = englishName;
     }
 
-    public String getFieldName() {
-        return fieldName;
+    public String getFieldType() {
+        return fieldType;
     }
 
-    public void setFieldName(String fieldName) {
-        this.fieldName = fieldName;
+    public void setFieldType(String fieldType) {
+        this.fieldType = fieldType;
     }
 
 }

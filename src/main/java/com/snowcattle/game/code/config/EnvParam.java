@@ -40,5 +40,12 @@ public class EnvParam {
     public static String getxlsPath(){
         return configBean.getXlsPath();
     }
+    public static String getJavaDictPath(){
+        return configBean.getJavaDictPoPath();
+    }
+
+    public static String getJavaDictPackage(){
+        return configBean.getJavaDictPackage();
+    }
 
 }

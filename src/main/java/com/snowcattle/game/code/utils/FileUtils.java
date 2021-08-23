@@ -35,4 +35,13 @@ public class FileUtils {
         return path.substring(0, index+1);
     }
 
+    public static void doFileMakeDirs(File file){
+        if(file.exists()){
+            file.delete();
+        }
+        File parentFile = file.getParentFile();
+        if(!parentFile.exists()){
+            parentFile.mkdirs();
+        }
+    }
 }

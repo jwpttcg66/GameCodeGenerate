@@ -22,7 +22,12 @@ public class PoClassParam {
     /**
      * 方法列表
      */
-    private List<FieldParam> list = new ArrayList<FieldParam>();
+    private List<FieldParam> fieldParams = new ArrayList<FieldParam>();
+
+    /**
+     * 包名
+     */
+    private String packageName;
 
     public String getClassName() {
         return className;
@@ -40,11 +45,23 @@ public class PoClassParam {
         this.classComment = classComment;
     }
 
-    public List<FieldParam> getList() {
-        return list;
+    public String getPackageName() {
+        return packageName;
     }
 
-    public void setList(List<FieldParam> list) {
-        this.list = list;
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
+    }
+
+    public List<FieldParam> getFieldParams() {
+        return fieldParams;
+    }
+
+    public void setFieldParams(List<FieldParam> fieldParams) {
+        this.fieldParams = fieldParams;
+    }
+
+    public void addFieldParam(FieldParam fieldParam){
+        this.fieldParams.add(fieldParam);
     }
 }

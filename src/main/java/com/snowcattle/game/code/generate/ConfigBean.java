@@ -52,5 +52,19 @@ public class ConfigBean {
     public void setJavaDictPoPath(String javaDictPoPath) {
         this.javaDictPoPath = javaDictPoPath;
     }
+
+    /**
+     * java生成的包名
+     */
+    private String javaDictPackage;
+
+    public String getJavaDictPackage() {
+        return javaDictPackage;
+    }
+
+    @Value("${javaDictPackage}")
+    public void setJavaDictPackage(String javaDictPackage) {
+        this.javaDictPackage = javaDictPackage;
+    }
 }
 

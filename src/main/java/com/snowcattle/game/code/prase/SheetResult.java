@@ -18,7 +18,7 @@ public class SheetResult {
     /**
      * field缓存
      */
-    private Map<String, SheetCellHeader> cache = new HashMap<String, SheetCellHeader>();
+    private Map<String, SheetCellHeader> headCache = new HashMap<String, SheetCellHeader>();
     /**
      * cell列索引缓存
      */
@@ -29,11 +29,11 @@ public class SheetResult {
      */
     private List<SheetRow> rowList = new ArrayList<SheetRow>();
     public boolean checkField(SheetCellHeader sheetCellHeader, int col){
-        if(cache.containsKey(sheetCellHeader.getEnglishName())){
+        if(headCache.containsKey(sheetCellHeader.getEnglishName())){
             return false;
         }
 
-        cache.put(sheetCellHeader.getEnglishName(), sheetCellHeader);
+        headCache.put(sheetCellHeader.getEnglishName(), sheetCellHeader);
         indexCache.put(col, sheetCellHeader);
         return true;
     }
@@ -61,4 +61,12 @@ public class SheetResult {
     public void setSheetName(String sheetName) {
         this.sheetName = sheetName;
     }
-}
+
+    /**
+     * 获取所有cell头部
+     * @return
+     */
+    public List<SheetCellHeader> getCellHeads(){
+        return new ArrayList<SheetCellHeader>(headCache.values());
+    }
+ }

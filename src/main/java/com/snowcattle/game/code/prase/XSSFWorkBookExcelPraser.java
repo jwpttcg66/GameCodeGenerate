@@ -71,7 +71,7 @@ public class XSSFWorkBookExcelPraser {
             SheetCellHeader sheetCellHeader = new SheetCellHeader();
             sheetCellHeader.setChineseName(chineseName);
             sheetCellHeader.setEnglishName(englishName);
-            sheetCellHeader.setFieldName(filedName);
+            sheetCellHeader.setFieldType(filedName);
 
             boolean check = sheetResult.checkField(sheetCellHeader, k);
             if(!check){
