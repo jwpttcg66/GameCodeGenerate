@@ -20,21 +20,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * excel2007解析器
+ * excel2007解析器 解析每张excel单表
  */
 public class XSSFWorkBookExcelPraser {
 
     private int headRowSize = 3;
 
+    /**
+     * 表格解析的结果
+     */
     private List<SheetResult> sheetResultList = new ArrayList<SheetResult>();
-
-    public List<SheetResult> getSheetResultList() {
-        return sheetResultList;
-    }
-
-    public void setSheetResultList(List<SheetResult> sheetResultList) {
-        this.sheetResultList = sheetResultList;
-    }
 
     public void praseExcel(String excelPath) throws CheckException {
         try {
@@ -51,8 +46,6 @@ public class XSSFWorkBookExcelPraser {
                 initHeader(sheet, sheetResult);
                 praseBody(sheet, sheetResult);
                 sheetResultList.add(sheetResult);
-//                generateJson(sheetResult);
-//                writeJsonFile(sheetResult);
             }
             fileInputStream.close();
         } catch (Exception e) {
@@ -134,5 +127,13 @@ public class XSSFWorkBookExcelPraser {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<SheetResult> getSheetResultList() {
+        return sheetResultList;
+    }
+
+    public void setSheetResultList(List<SheetResult> sheetResultList) {
+        this.sheetResultList = sheetResultList;
     }
 }

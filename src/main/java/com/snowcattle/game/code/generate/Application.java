@@ -1,7 +1,9 @@
 package com.snowcattle.game.code.generate;
 
+import com.snowcattle.game.code.prase.GlobalSheetCheck;
 import com.snowcattle.game.code.prase.SheetResult;
 import com.snowcattle.game.code.prase.XSSFWorkBookExcelPraser;
+import com.snowcattle.game.code.utils.CheckException;
 import com.snowcattle.game.code.utils.EnvParam;
 import com.snowcattle.game.code.utils.FileUtils;
 import com.snowcattle.game.code.utils.StartCmdEnum;
@@ -30,6 +32,8 @@ public class Application {
 
 		//输出启动参数，第一个参数为命令
 		String cmd = args[0];
+		GlobalSheetCheck globalSheetCheck = new GlobalSheetCheck();
+
 		if(cmd.equals(StartCmdEnum.generateJson.toString())){
 
 			String dirPath = EnvParam.getxlsPath();
@@ -43,7 +47,10 @@ public class Application {
 				for(SheetResult sheetResult: resultList){
 					String sheetName = sheetResult.getSheetName()+ ".json";
 					String filePath = FileUtils.getDestRootPath(key);
-
+					if(globalSheetCheck.isExsitSheet(sheetName)){
+						throw new CheckException(" sheetName: " + sheetName + " is exsit");
+					}
+					globalSheetCheck.addSheetName(sheetName);
 					xssfWorkBookExcelPraser.writeJsonFile(filePath + sheetName, sheetResult);
 				}
 			}
