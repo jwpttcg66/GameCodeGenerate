@@ -1,4 +1,4 @@
-package com.snowcattle.game.code.generate;
+package com.snowcattle.game.code.writer.json;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
