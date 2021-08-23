@@ -47,7 +47,7 @@ public class JavaPoGenerater {
         PoClassParam poClassParam = new PoClassParam();
         String packgeName = EnvParam.getJavaDictPackage();
         poClassParam.setPackageName(packgeName);
-        poClassParam.setClassName(sheetResult.getSheetName().toUpperCase());
+        poClassParam.setClassName(sheetResult.getSheetName());
 
         //生成字段
         List<SheetCellHeader>  headers = sheetResult.getCellHeads();
