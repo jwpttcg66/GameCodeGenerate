@@ -14,10 +14,16 @@ public class GlobalSheetCheck {
     private Set<String> sheetSets = new HashSet<String>();
 
     public boolean isExsitSheet(String sheetName){
-        return sheetSets.contains(sheetName);
+        boolean result = false;
+        synchronized (sheetSets){
+            result =  sheetSets.contains(sheetName);
+        }
+        return result;
     }
 
     public void addSheetName(String sheetName){
-        sheetSets.add(sheetName);
+        synchronized (sheetSets) {
+            sheetSets.add(sheetName);
+        }
     }
 }
