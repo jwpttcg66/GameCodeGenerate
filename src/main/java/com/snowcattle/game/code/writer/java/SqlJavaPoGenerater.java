@@ -53,19 +53,26 @@ public class SqlJavaPoGenerater {
         PoClassParam poClassParam = new PoClassParam();
         String packgeName = EnvParam.getJavaSqlPoDictPackage();
         poClassParam.setPackageName(packgeName);
-        poClassParam.setClassName(tableResult.getTableName());
+        poClassParam.setClassName(transfeSqlName(tableResult.getTableName()));
 
         //生成字段
         List<TableColumnDefinitionParam> tableColumnDefinitionParams = tableResult.getTableColumnDefinitionParamList();
         for(TableColumnDefinitionParam tableColumnDefinitionParam: tableColumnDefinitionParams){
             FieldParam fieldParam = new FieldParam();
-            fieldParam.setFiledName(tableColumnDefinitionParam.getFiledName());
+            fieldParam.setFiledName(transfeSqlName(tableColumnDefinitionParam.getFiledName()));
             fieldParam.setFiledType(tableColumnDefinitionParam.getFiledType());
-            fieldParam.setFileldComment(tableColumnDefinitionParam.getFileldComment());
+            fieldParam.setFileldComment(transfeSqlName(tableColumnDefinitionParam.getFileldComment()));
             poClassParam.addFieldParam(fieldParam);
         }
         return poClassParam;
     }
 
+    public String transfeSqlName(String sqlName){
+        if(sqlName == null){
+            return null;
+        }
+
+        return sqlName.substring(1, sqlName.length() -1);
+    }
 
 }

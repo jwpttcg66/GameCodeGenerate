@@ -61,14 +61,15 @@ public class Application {
 				String tableName = tableResult.getTableName();
 				String newTableName = tableName;
 				String fileEndName = ".java";
+				SqlJavaPoGenerater sqlJavaPoGenerater  = new SqlJavaPoGenerater();
+				newTableName = sqlJavaPoGenerater.transfeSqlName(newTableName);
 				newTableName = newTableName + fileEndName;
 				String destFileRootPath = FileUtils.getFrontDestRootPath(key);
 				if(globalFileCheck.isExsitFile(newTableName)){
 					throw new CheckException(" newTableName: " + tableName + " is exsit");
 				}
 				globalFileCheck.addFileName(newTableName);
-				new SqlJavaPoGenerater().writeJavaPoFile(destFileRootPath + newTableName, tableResult);
-
+				sqlJavaPoGenerater.writeJavaPoFile(destFileRootPath + newTableName, tableResult);
 			}
 		}
 
