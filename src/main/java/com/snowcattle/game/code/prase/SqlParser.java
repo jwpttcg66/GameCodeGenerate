@@ -18,7 +18,7 @@ import java.util.List;
 /**
  *  单文件sql解析
  */
-public class SqlPraser {
+public class SqlParser {
 
     public List<TableResult> tableResultList = new ArrayList<TableResult>();
 

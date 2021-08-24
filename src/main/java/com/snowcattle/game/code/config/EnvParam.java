@@ -60,5 +60,18 @@ public class EnvParam {
         return configBean.getJavaSqlPoPath();
     }
 
+    public static String getXmlPath(){
+        return configBean.getXmlPath();
+    }
+    public static String getXmlJavaDictPackage(){
+        return configBean.getXmlJavaDictPackage();
+    }
 
+    public static String getXmlJavaDictPoPath(){
+        return configBean.getXmlJavaDictPoPath();
+    }
+
+    public static String getXmlJsonPath(){
+        return configBean.getXmlJsonPath();
+    }
 }

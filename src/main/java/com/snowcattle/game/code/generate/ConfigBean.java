@@ -113,5 +113,44 @@ public class ConfigBean {
     public void setJavaSqlPoPath(String javaSqlPoPath) {
         this.javaSqlPoPath = javaSqlPoPath;
     }
+
+    private String xmlPath;
+    private String xmlJsonPath;
+    private String xmlJavaDictPoPath;
+    private String xmlJavaDictPackage;
+
+    public String getXmlPath() {
+        return xmlPath;
+    }
+    @Value("${xmlPath}")
+    public void setXmlPath(String xmlPath) {
+        this.xmlPath = xmlPath;
+    }
+
+    public String getXmlJsonPath() {
+        return xmlJsonPath;
+    }
+
+    @Value("${xmlJsonPath}")
+    public void setXmlJsonPath(String xmlJsonPath) {
+        this.xmlJsonPath = xmlJsonPath;
+    }
+
+    public String getXmlJavaDictPoPath() {
+        return xmlJavaDictPoPath;
+    }
+
+    @Value("${xmlJavaDictPoPath}")
+    public void setXmlJavaDictPoPath(String xmlJavaDictPoPath) {
+        this.xmlJavaDictPoPath = xmlJavaDictPoPath;
+    }
+
+    public String getXmlJavaDictPackage() {
+        return xmlJavaDictPackage;
+    }
+    @Value("${xmlJavaDictPackage}")
+    public void setXmlJavaDictPackage(String xmlJavaDictPackage) {
+        this.xmlJavaDictPackage = xmlJavaDictPackage;
+    }
 }
 

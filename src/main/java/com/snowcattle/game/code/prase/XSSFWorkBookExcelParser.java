@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * excel2007解析器 解析每张excel单表
  */
-public class XSSFWorkBookExcelPraser {
+public class XSSFWorkBookExcelParser {
 
     private int headRowSize = 3;
 

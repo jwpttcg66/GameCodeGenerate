@@ -9,6 +9,7 @@ import com.snowcattle.game.code.writer.java.JavaPoGenerater;
 import com.snowcattle.game.code.writer.java.SqlJavaPoGenerater;
 import com.snowcattle.game.code.writer.json.JSonGenerater;
 import net.sf.jsqlparser.JSQLParserException;
+import org.dom4j.DocumentException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -59,9 +60,9 @@ public class Application {
 		Map<String, File> allFiles = FileUtils.recursiveFiles(dirPath, fileExtension);
 		for(String key: allFiles.keySet()){
 			File file = allFiles.get(key);
-			SqlPraser sqlPraser = new SqlPraser();
-			sqlPraser.prase(file.getPath());
-			List<TableResult> tableResults = sqlPraser.getTableResultList();
+			SqlParser sqlParser = new SqlParser();
+			sqlParser.prase(file.getPath());
+			List<TableResult> tableResults = sqlParser.getTableResultList();
 			for(TableResult tableResult: tableResults){
 				String tableName = tableResult.getTableName();
 				String newTableName = tableName;
@@ -87,10 +88,10 @@ public class Application {
 		Map<String, File> allFiles = FileUtils.recursiveFiles(dirPath, fileExtension);
 		for(String key: allFiles.keySet()){
 			File file = allFiles.get(key);
-			XSSFWorkBookExcelPraser xssfWorkBookExcelPraser = new XSSFWorkBookExcelPraser();
-			xssfWorkBookExcelPraser.praseExcel(file.getPath());
+			XSSFWorkBookExcelParser xssfWorkBookExcelParser = new XSSFWorkBookExcelParser();
+			xssfWorkBookExcelParser.praseExcel(file.getPath());
 			//解析所有sheetnew
-			List<SheetResult> resultList = xssfWorkBookExcelPraser.getSheetResultList();
+			List<SheetResult> resultList = xssfWorkBookExcelParser.getSheetResultList();
 			for(SheetResult sheetResult: resultList){
 				String sheetName = sheetResult.getSheetName();
 				String newSheeTName = sheetName;
@@ -120,15 +121,15 @@ public class Application {
 		}
 	}
 
-	public static void xmlExportJSONAndJava(boolean jsonFlag, boolean javaFlag) throws IOException, CheckException {
+	public static void xmlExportJSONAndJava(boolean jsonFlag, boolean javaFlag) throws IOException, CheckException, DocumentException {
 		GlobalFileCheck globalFileCheck = new GlobalFileCheck();
-		String dirPath = EnvParam.getxlsPath();
+		String dirPath = EnvParam.getXmlPath();
 		String fileExtension = ".xml";
 		Map<String, File> allFiles = FileUtils.recursiveFiles(dirPath, fileExtension);
 		for(String key: allFiles.keySet()){
-//			File file = allFiles.get(key);
-//			XSSFWorkBookExcelPraser xssfWorkBookExcelPraser = new XSSFWorkBookExcelPraser();
-//			xssfWorkBookExcelPraser.praseExcel(file.getPath());
+			File file = allFiles.get(key);
+			XmlWorkBookParser xmlWorkBookParser = new XmlWorkBookParser();
+			xmlWorkBookParser.praseXml(file.getPath());
 //			//解析所有sheetnew
 //			List<SheetResult> resultList = xssfWorkBookExcelPraser.getSheetResultList();
 //			for(SheetResult sheetResult: resultList){
