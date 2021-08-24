@@ -15,3 +15,5 @@
 # 启动配置文件
     application.properties
 
+# 具体参数
+https://github.com/jwpttcg66/GameCodeGenerate/wiki
