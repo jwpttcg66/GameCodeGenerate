@@ -48,4 +48,8 @@ public class EnvParam {
         return configBean.getJavaDictPackage();
     }
 
+    public static String getSqlPath(){
+        return configBean.getSqlPath();
+    }
+
 }

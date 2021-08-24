@@ -8,5 +8,5 @@ public enum StartCmdEnum {
     generateJson,
     generateJavaPo,
     generateJsonAndJavaPo,
-    generateaSqlPo
+    generateaSqlPo,
 }

@@ -5,6 +5,7 @@ import com.google.common.base.Joiner;
 import com.google.common.io.Files;
 import com.snowcattle.game.code.prase.GlobalSheetCheck;
 import com.snowcattle.game.code.prase.SheetResult;
+import com.snowcattle.game.code.prase.SqlPraser;
 import com.snowcattle.game.code.prase.XSSFWorkBookExcelPraser;
 import com.snowcattle.game.code.utils.CheckException;
 import com.snowcattle.game.code.config.EnvParam;
@@ -59,65 +60,33 @@ public class Application {
 		}
 	}
 
-	public static void exportSqlPo() throws IOException, JSQLParserException {
-		String sqlPath = "/Users/jiangwenping/data/gameley/github/GameCodeGenerate/src/main/resources/sql/testsql.sql";
-		File file = new File(sqlPath);
-		String sqlString = new String(Files.toByteArray(file), Charsets.UTF_8).toLowerCase();
-		List<Statement> statements  = CCJSqlParserUtil.parseStatements(sqlString).getStatements();
-		for(Statement statement: statements) {
-			if(statement instanceof  CreateTable) {
-				CreateTable createStatement = (CreateTable) statement;
-				TablesNamesFinder tablesNamesFinder = new TablesNamesFinder();
-				List<String> tableList = tablesNamesFinder.getTableList(createStatement);
-				String tableName = tableList.get(0).toString();
-				System.out.println("解析表名：" + tableName + " ");
-
-				List<ColumnDefinition>  columnDefinitionList = createStatement.getColumnDefinitions();
-				for(ColumnDefinition columnDefinition: columnDefinitionList){
-					System.out.println("表名：" + tableName + " 列名 " + columnDefinition.getColumnName() + " 类型 " + columnDefinition.getColDataType());
-					System.out.println(SqlUtils.findSqlColnamePoFileTypeName(columnDefinition.getColDataType().toString()));
-					//获取注释
-					List<String>  stringList = columnDefinition.getColumnSpecs();
-					if(stringList != null && stringList.size() > 0) {
-
-						String commment = Joiner.on(",").join(stringList);
-						if(commment.contains("comment")){
-							//找到紧随其后的注释
-							String commentString = null;
-
-							for(int i = 0; i < stringList.size(); i++){
-								String string = stringList.get(i);
-								if(string.contains("comment")){
-									commentString = stringList.get(i+1);
-									break;
-								}
-							}
-//							System.out.println("找到注释" + commentString);
-						}
-					}
-
-				}
-
-			}
+	public static void exportSqlPo() throws IOException, JSQLParserException, CheckException  {
+		String dirPath = EnvParam.getSqlPath();
+		String fileExtension = ".sql";
+		Map<String, File> allFiles = FileUtils.recursiveFiles(dirPath, fileExtension);
+		for(String key: allFiles.keySet()){
+			File file = allFiles.get(key);
+			SqlPraser sqlPraser = new SqlPraser();
+			sqlPraser.prase(file.getPath());
 		}
-
 	}
 
 	public static void exportJSONAndJava(boolean jsonFlag, boolean javaFlag) throws IOException, CheckException {
 		GlobalSheetCheck globalSheetCheck = new GlobalSheetCheck();
 		String dirPath = EnvParam.getxlsPath();
-		Map<String, File> allFiles = FileUtils.recursiveFiles(dirPath);
+		String fileExtension = ".json";
+		Map<String, File> allFiles = FileUtils.recursiveFiles(dirPath, fileExtension);
 		for(String key: allFiles.keySet()){
 			File file = allFiles.get(key);
 			XSSFWorkBookExcelPraser xssfWorkBookExcelPraser = new XSSFWorkBookExcelPraser();
 			xssfWorkBookExcelPraser.praseExcel(file.getPath());
-			//解析所有sheet
+			//解析所有sheetnew
 			List<SheetResult> resultList = xssfWorkBookExcelPraser.getSheetResultList();
 			for(SheetResult sheetResult: resultList){
 				String sheetName = sheetResult.getSheetName();
 				String newSheeTName = sheetName;
 				if(jsonFlag){
-					String fileEndName = ".json";
+					String fileEndName = fileExtension;
 					newSheeTName = sheetName + fileEndName;
 					String destFileRootPath = FileUtils.getFrontDestRootPath(key);
 					if(globalSheetCheck.isExsitSheet(newSheeTName)){

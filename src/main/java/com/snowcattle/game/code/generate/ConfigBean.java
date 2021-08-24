@@ -13,6 +13,37 @@ public class ConfigBean {
     }
 
 
+    /**
+     * json文件夹路径
+     */
+    private String jsonPath;
+
+    /**
+     * sql文件夹路径
+     */
+    private String sqlPath;
+
+    /**
+     * sqlPo默认包路径
+     */
+    private String javaSqlPoDictPackage;
+    /**
+     *  excel目录
+     */
+    private String xlsPath;
+
+    /**
+     * java生成的数据字典目录
+     */
+    private String javaDictPoPath;
+
+    /**
+     * java生成的包名
+     */
+    private String javaDictPackage;
+
+
+
     public String getJsonPath() {
         return jsonPath;
     }
@@ -22,7 +53,7 @@ public class ConfigBean {
         this.jsonPath = jsonPath;
     }
 
-    private String jsonPath;
+
 
     public String getXlsPath() {
         return xlsPath;
@@ -33,16 +64,6 @@ public class ConfigBean {
         this.xlsPath = xlsPath;
     }
 
-    /**
-     *  excel目录
-     */
-    private String xlsPath;
-
-
-    /**
-     * java生成的数据字典目录
-     */
-    private String javaDictPoPath;
 
     public String getJavaDictPoPath() {
         return javaDictPoPath;
@@ -53,11 +74,6 @@ public class ConfigBean {
         this.javaDictPoPath = javaDictPoPath;
     }
 
-    /**
-     * java生成的包名
-     */
-    private String javaDictPackage;
-
     public String getJavaDictPackage() {
         return javaDictPackage;
     }
@@ -65,6 +81,24 @@ public class ConfigBean {
     @Value("${javaDictPackage}")
     public void setJavaDictPackage(String javaDictPackage) {
         this.javaDictPackage = javaDictPackage;
+    }
+
+    public String getSqlPath() {
+        return sqlPath;
+    }
+
+    @Value("${sqlPath}")
+    public void setSqlPath(String sqlPath) {
+        this.sqlPath = sqlPath;
+    }
+
+    public String getJavaSqlPoDictPackage() {
+        return javaSqlPoDictPackage;
+    }
+
+    @Value("${javaSqlPoDictPackage}")
+    public void setJavaSqlPoDictPackage(String javaSqlPoDictPackage) {
+        this.javaSqlPoDictPackage = javaSqlPoDictPackage;
     }
 }
 

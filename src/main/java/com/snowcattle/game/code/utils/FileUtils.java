@@ -12,11 +12,14 @@ public class FileUtils {
      * 遍历文件/文件夹 - 函数
      * [String]path        文件路径
      */
-    public static Map<String , File> recursiveFiles(String path) throws IOException {
+    public static Map<String , File> recursiveFiles(String path, String fileExtension) throws IOException {
         Map<String , File> fileMap = new HashMap<String , File>();
         Iterable<File> files = Files.fileTraverser().depthFirstPreOrder(new File(path));
         for (File file: files){
             if(file.isDirectory()){
+                continue;
+            }
+            if(!file.getName().endsWith(fileExtension)){
                 continue;
             }
             String filePath = file.getPath();
@@ -28,7 +31,7 @@ public class FileUtils {
     }
 
     /**
-     * 获取文件相对路径的前面路径
+     * 获取文件相对路径的前面路径 比如com/test
      * @param path
      * @return
      */
@@ -41,7 +44,7 @@ public class FileUtils {
     }
 
     /**
-     * 获取文件相对路径的后面路径
+     * 获取文件相对路径的后面路径 比如example.xmls
      * @param path
      * @return
      */

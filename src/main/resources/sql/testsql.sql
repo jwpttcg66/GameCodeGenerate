@@ -20,8 +20,8 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 -- Table structure for testsql
 -- ----------------------------
-DROP TABLE IF EXISTS `testsql`;
-CREATE TABLE `testsql` (
+DROP TABLE IF EXISTS `testdosql`;
+CREATE TABLE `testdosql` (
                            `Id` int(11) NOT NULL,
                            `name` tinytext NOT NULL COMMENT '名字',
                            `varCh` varchar(255) DEFAULT NULL,
