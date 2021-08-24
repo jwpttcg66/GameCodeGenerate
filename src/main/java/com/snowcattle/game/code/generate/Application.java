@@ -78,7 +78,7 @@ public class Application {
 	public static void exportJSONAndJava(boolean jsonFlag, boolean javaFlag) throws IOException, CheckException {
 		GlobalFileCheck globalFileCheck = new GlobalFileCheck();
 		String dirPath = EnvParam.getxlsPath();
-		String fileExtension = ".json";
+		String fileExtension = ".xlsx";
 		Map<String, File> allFiles = FileUtils.recursiveFiles(dirPath, fileExtension);
 		for(String key: allFiles.keySet()){
 			File file = allFiles.get(key);
@@ -90,7 +90,7 @@ public class Application {
 				String sheetName = sheetResult.getSheetName();
 				String newSheeTName = sheetName;
 				if(jsonFlag){
-					String fileEndName = fileExtension;
+					String fileEndName = ".json";
 					newSheeTName = sheetName + fileEndName;
 					String destFileRootPath = FileUtils.getFrontDestRootPath(key);
 					if(globalFileCheck.isExsitFile(newSheeTName)){
