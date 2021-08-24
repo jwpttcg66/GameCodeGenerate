@@ -20,7 +20,6 @@ import java.util.List;
  */
 public class XmlWorkBookParser {
     private int headRowSize = 3;
-
     /**
      * 表格解析的结果
      */
@@ -139,6 +138,14 @@ public class XmlWorkBookParser {
         String sheetName = sheetResult.getSheetName();
         System.out.println("sheet " + sheetName +"解析完成");
 
+    }
+
+    public List<SheetResult> getSheetResultList() {
+        return sheetResultList;
+    }
+
+    public void setSheetResultList(List<SheetResult> sheetResultList) {
+        this.sheetResultList = sheetResultList;
     }
 
 

@@ -103,7 +103,7 @@ public class Application {
 						throw new CheckException(" newSheeTName: " + sheetName + " is exsit");
 					}
 					globalFileCheck.addFileName(newSheeTName);
-					new JSonGenerater().writeJsonFile(destFileRootPath + newSheeTName, sheetResult);
+					new JSonGenerater().writeJsonFile(destFileRootPath + newSheeTName, sheetResult, false);
 				}
 
 				if(javaFlag) {
@@ -131,20 +131,20 @@ public class Application {
 			XmlWorkBookParser xmlWorkBookParser = new XmlWorkBookParser();
 			xmlWorkBookParser.praseXml(file.getPath());
 //			//解析所有sheetnew
-//			List<SheetResult> resultList = xssfWorkBookExcelPraser.getSheetResultList();
-//			for(SheetResult sheetResult: resultList){
-//				String sheetName = sheetResult.getSheetName();
-//				String newSheeTName = sheetName;
-//				if(jsonFlag){
-//					String fileEndName = ".json";
-//					newSheeTName = sheetName + fileEndName;
-//					String destFileRootPath = FileUtils.getFrontDestRootPath(key);
-//					if(globalFileCheck.isExsitFile(newSheeTName)){
-//						throw new CheckException(" newSheeTName: " + sheetName + " is exsit");
-//					}
-//					globalFileCheck.addFileName(newSheeTName);
-//					new JSonGenerater().writeJsonFile(destFileRootPath + newSheeTName, sheetResult);
-//				}
+			List<SheetResult> resultList = xmlWorkBookParser.getSheetResultList();
+			for(SheetResult sheetResult: resultList){
+				String sheetName = sheetResult.getSheetName();
+				String newSheeTName = sheetName;
+				if(jsonFlag){
+					String fileEndName = ".json";
+					newSheeTName = sheetName + fileEndName;
+					String destFileRootPath = FileUtils.getFrontDestRootPath(key);
+					if(globalFileCheck.isExsitFile(newSheeTName)){
+						throw new CheckException(" newSheeTName: " + sheetName + " is exsit");
+					}
+					globalFileCheck.addFileName(newSheeTName);
+					new JSonGenerater().writeJsonFile(destFileRootPath + newSheeTName, sheetResult, true);
+				}
 //
 //				if(javaFlag) {
 //					String fileEndName = ".java";
@@ -157,7 +157,7 @@ public class Application {
 //					new JavaPoGenerater().writeJavaPoFile(destFileRootPath + newSheeTName, sheetResult);
 //				}
 
-//			}
+			}
 		}
 	}
 

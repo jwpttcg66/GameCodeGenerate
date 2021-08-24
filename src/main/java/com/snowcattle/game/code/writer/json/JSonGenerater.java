@@ -31,10 +31,14 @@ public class JSonGenerater {
         return jsonArray;
     }
 
-    public void writeJsonFile(String relativePath, SheetResult sheetResult){
+    public void writeJsonFile(String relativePath, SheetResult sheetResult, boolean xmlFlag){
         JSONArray jsonArray = generateJson(sheetResult);
 
         String dirPath = EnvParam.getJsonPath();
+        if(xmlFlag){
+            dirPath =  EnvParam.getXmlJsonPath();
+        }
+
         String filePath = relativePath;
         try {
             new JSonFileWriter().writeFile(dirPath, filePath, jsonArray);
