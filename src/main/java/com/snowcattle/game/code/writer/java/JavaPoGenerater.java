@@ -14,7 +14,7 @@ public class JavaPoGenerater {
 
     private static Configuration cfg = new Configuration();
 
-    public void writeJavaPoFile(String relativePath, SheetResult sheetResult){
+    public void writeJavaPoFile(String relativePath, SheetResult sheetResult, boolean xmlFlag){
 
         try {
             Template temp = null;
@@ -23,17 +23,20 @@ public class JavaPoGenerater {
             //设置freemaker 文件加载目录
             cfg.setDirectoryForTemplateLoading(loadTemplateFile.getParentFile());
 
-            PoClassParam poClassParam = tranferPoClass(sheetResult);
-            writeJavaFile(relativePath, poClassParam);
+            PoClassParam poClassParam = tranferPoClass(sheetResult, xmlFlag);
+            writeJavaFile(relativePath, poClassParam, xmlFlag);
 
         }catch (Exception e){
             e.printStackTrace();
         }
 
     }
-    private void writeJavaFile(String relativePath, PoClassParam poClassParam) throws FileNotFoundException {
+    private void writeJavaFile(String relativePath, PoClassParam poClassParam, boolean xmlFlag) throws FileNotFoundException {
 
         String dirPath = EnvParam.getJavaDictPath();
+        if(xmlFlag){
+            dirPath = EnvParam.getXmlJavaDictPoPath();
+        }
         String filePath = relativePath;
         //这里需要转化下包名，还有excel路径
         filePath = FileUtils.getEndDestRootPath(filePath);
@@ -44,9 +47,12 @@ public class JavaPoGenerater {
         }
     }
 
-    private PoClassParam tranferPoClass(SheetResult sheetResult){
+    private PoClassParam tranferPoClass(SheetResult sheetResult, boolean xmlFlag){
         PoClassParam poClassParam = new PoClassParam();
         String packgeName = EnvParam.getJavaDictPackage();
+        if(xmlFlag){
+            packgeName = EnvParam.getXmlJavaDictPackage();
+        }
         poClassParam.setPackageName(packgeName);
         poClassParam.setClassName(sheetResult.getSheetName());
 

@@ -114,7 +114,7 @@ public class Application {
 						throw new CheckException(" newSheeTName: " + sheetName + " is exsit");
 					}
 					globalFileCheck.addFileName(newSheeTName);
-					new JavaPoGenerater().writeJavaPoFile(destFileRootPath + newSheeTName, sheetResult);
+					new JavaPoGenerater().writeJavaPoFile(destFileRootPath + newSheeTName, sheetResult,false);
 				}
 
 			}
@@ -145,17 +145,17 @@ public class Application {
 					globalFileCheck.addFileName(newSheeTName);
 					new JSonGenerater().writeJsonFile(destFileRootPath + newSheeTName, sheetResult, true);
 				}
-//
-//				if(javaFlag) {
-//					String fileEndName = ".java";
-//					newSheeTName = sheetName + fileEndName;
-//					String destFileRootPath = FileUtils.getFrontDestRootPath(key);
-//					if(globalFileCheck.isExsitFile(newSheeTName)){
-//						throw new CheckException(" newSheeTName: " + sheetName + " is exsit");
-//					}
-//					globalFileCheck.addFileName(newSheeTName);
-//					new JavaPoGenerater().writeJavaPoFile(destFileRootPath + newSheeTName, sheetResult);
-//				}
+
+				if(javaFlag) {
+					String fileEndName = ".java";
+					newSheeTName = sheetName + fileEndName;
+					String destFileRootPath = FileUtils.getFrontDestRootPath(key);
+					if(globalFileCheck.isExsitFile(newSheeTName)){
+						throw new CheckException(" newSheeTName: " + sheetName + " is exsit");
+					}
+					globalFileCheck.addFileName(newSheeTName);
+					new JavaPoGenerater().writeJavaPoFile(destFileRootPath + newSheeTName, sheetResult, true);
+				}
 
 			}
 		}
