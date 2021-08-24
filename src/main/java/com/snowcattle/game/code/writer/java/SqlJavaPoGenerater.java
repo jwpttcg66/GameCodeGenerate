@@ -6,6 +6,7 @@ import com.snowcattle.game.code.prase.SheetResult;
 import com.snowcattle.game.code.prase.TableColumnDefinitionParam;
 import com.snowcattle.game.code.prase.TableResult;
 import com.snowcattle.game.code.utils.FileUtils;
+import com.snowcattle.game.code.utils.StringUtils;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import org.springframework.util.ResourceUtils;
@@ -53,7 +54,8 @@ public class SqlJavaPoGenerater {
         PoClassParam poClassParam = new PoClassParam();
         String packgeName = EnvParam.getJavaSqlPoDictPackage();
         poClassParam.setPackageName(packgeName);
-        poClassParam.setClassName(transfeSqlName(tableResult.getTableName()));
+        String className = transfeSqlName(tableResult.getTableName());
+        poClassParam.setClassName(StringUtils.changeToJavaFiled(className,true));
 
         //生成字段
         List<TableColumnDefinitionParam> tableColumnDefinitionParams = tableResult.getTableColumnDefinitionParamList();
