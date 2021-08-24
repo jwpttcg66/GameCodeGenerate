@@ -11,6 +11,7 @@ import freemarker.template.TemplateException;
 import java.io.*;
 
 public class JavaPoWriter {
+
     public void writeFile(String  rootPath , String filePath, Configuration cfg, PoClassParam poClassParam) throws IOException {
         File file  = new File(rootPath + File.separatorChar + filePath);
         FileUtils.doFileMakeDirs(file);

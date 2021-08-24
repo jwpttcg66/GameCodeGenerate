@@ -1,34 +1,21 @@
 package com.snowcattle.game.code.generate;
 
-import com.google.common.base.Charsets;
-import com.google.common.base.Joiner;
-import com.google.common.io.Files;
-import com.snowcattle.game.code.prase.GlobalSheetCheck;
-import com.snowcattle.game.code.prase.SheetResult;
-import com.snowcattle.game.code.prase.SqlPraser;
-import com.snowcattle.game.code.prase.XSSFWorkBookExcelPraser;
+import com.snowcattle.game.code.prase.*;
 import com.snowcattle.game.code.utils.CheckException;
 import com.snowcattle.game.code.config.EnvParam;
 import com.snowcattle.game.code.utils.FileUtils;
-import com.snowcattle.game.code.utils.SqlUtils;
 import com.snowcattle.game.code.utils.StartCmdEnum;
 import com.snowcattle.game.code.writer.java.JavaPoGenerater;
+import com.snowcattle.game.code.writer.java.SqlJavaPoGenerater;
 import com.snowcattle.game.code.writer.json.JSonGenerater;
 import net.sf.jsqlparser.JSQLParserException;
-import net.sf.jsqlparser.parser.CCJSqlParserUtil;
-import net.sf.jsqlparser.statement.Statement;
-import net.sf.jsqlparser.statement.create.table.ColumnDefinition;
-import net.sf.jsqlparser.statement.create.table.CreateTable;
-import net.sf.jsqlparser.util.TablesNamesFinder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.util.StringUtils;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -61,6 +48,7 @@ public class Application {
 	}
 
 	public static void exportSqlPo() throws IOException, JSQLParserException, CheckException  {
+		GlobalFileCheck globalFileCheck = new GlobalFileCheck();
 		String dirPath = EnvParam.getSqlPath();
 		String fileExtension = ".sql";
 		Map<String, File> allFiles = FileUtils.recursiveFiles(dirPath, fileExtension);
@@ -68,11 +56,26 @@ public class Application {
 			File file = allFiles.get(key);
 			SqlPraser sqlPraser = new SqlPraser();
 			sqlPraser.prase(file.getPath());
+			List<TableResult> tableResults = sqlPraser.getTableResultList();
+			for(TableResult tableResult: tableResults){
+				String tableName = tableResult.getTableName();
+				String newTableName = tableName;
+				String fileEndName = ".java";
+				newTableName = newTableName + fileEndName;
+				String destFileRootPath = FileUtils.getFrontDestRootPath(key);
+				if(globalFileCheck.isExsitFile(newTableName)){
+					throw new CheckException(" newTableName: " + tableName + " is exsit");
+				}
+				globalFileCheck.addFileName(newTableName);
+				new SqlJavaPoGenerater().writeJavaPoFile(destFileRootPath + newTableName, tableResult);
+
+			}
 		}
+
 	}
 
 	public static void exportJSONAndJava(boolean jsonFlag, boolean javaFlag) throws IOException, CheckException {
-		GlobalSheetCheck globalSheetCheck = new GlobalSheetCheck();
+		GlobalFileCheck globalFileCheck = new GlobalFileCheck();
 		String dirPath = EnvParam.getxlsPath();
 		String fileExtension = ".json";
 		Map<String, File> allFiles = FileUtils.recursiveFiles(dirPath, fileExtension);
@@ -89,10 +92,10 @@ public class Application {
 					String fileEndName = fileExtension;
 					newSheeTName = sheetName + fileEndName;
 					String destFileRootPath = FileUtils.getFrontDestRootPath(key);
-					if(globalSheetCheck.isExsitSheet(newSheeTName)){
+					if(globalFileCheck.isExsitFile(newSheeTName)){
 						throw new CheckException(" newSheeTName: " + sheetName + " is exsit");
 					}
-					globalSheetCheck.addSheetName(newSheeTName);
+					globalFileCheck.addFileName(newSheeTName);
 					new JSonGenerater().writeJsonFile(destFileRootPath + newSheeTName, sheetResult);
 				}
 
@@ -100,10 +103,10 @@ public class Application {
 					String fileEndName = ".java";
 					newSheeTName = sheetName + fileEndName;
 					String destFileRootPath = FileUtils.getFrontDestRootPath(key);
-					if(globalSheetCheck.isExsitSheet(newSheeTName)){
+					if(globalFileCheck.isExsitFile(newSheeTName)){
 						throw new CheckException(" newSheeTName: " + sheetName + " is exsit");
 					}
-					globalSheetCheck.addSheetName(newSheeTName);
+					globalFileCheck.addFileName(newSheeTName);
 					new JavaPoGenerater().writeJavaPoFile(destFileRootPath + newSheeTName, sheetResult);
 				}
 

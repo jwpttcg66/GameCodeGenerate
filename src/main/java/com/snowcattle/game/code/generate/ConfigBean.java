@@ -42,6 +42,10 @@ public class ConfigBean {
      */
     private String javaDictPackage;
 
+    /**
+     * java sql文件生成路径
+     */
+    private String javaSqlPoPath;
 
 
     public String getJsonPath() {
@@ -99,6 +103,15 @@ public class ConfigBean {
     @Value("${javaSqlPoDictPackage}")
     public void setJavaSqlPoDictPackage(String javaSqlPoDictPackage) {
         this.javaSqlPoDictPackage = javaSqlPoDictPackage;
+    }
+
+    public String getJavaSqlPoPath() {
+        return javaSqlPoPath;
+    }
+
+    @Value("${javaSqlPoPath}")
+    public void setJavaSqlPoPath(String javaSqlPoPath) {
+        this.javaSqlPoPath = javaSqlPoPath;
     }
 }
 

@@ -12,7 +12,9 @@ import java.util.Date;
 public class ${className} {
 
 <#list fieldParams as value>
+    <#if value.fileldComment??>
     /*${value.fileldComment}*/
+    </#if>
     private ${value.filedType} ${value.filedName};
 </#list>
 

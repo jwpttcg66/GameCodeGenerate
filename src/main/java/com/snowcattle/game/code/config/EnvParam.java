@@ -52,4 +52,13 @@ public class EnvParam {
         return configBean.getSqlPath();
     }
 
+    public static String getJavaSqlPoDictPackage(){
+        return configBean.getJavaSqlPoDictPackage();
+    }
+
+    public  static String getJavaSqlPoPath(){
+        return configBean.getJavaSqlPoPath();
+    }
+
+
 }

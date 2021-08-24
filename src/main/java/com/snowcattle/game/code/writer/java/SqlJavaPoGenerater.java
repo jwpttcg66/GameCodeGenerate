@@ -3,18 +3,22 @@ package com.snowcattle.game.code.writer.java;
 import com.snowcattle.game.code.config.EnvParam;
 import com.snowcattle.game.code.prase.SheetCellHeader;
 import com.snowcattle.game.code.prase.SheetResult;
+import com.snowcattle.game.code.prase.TableColumnDefinitionParam;
+import com.snowcattle.game.code.prase.TableResult;
 import com.snowcattle.game.code.utils.FileUtils;
-import freemarker.template.*;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
 import org.springframework.util.ResourceUtils;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
-public class JavaPoGenerater {
-
+public class SqlJavaPoGenerater {
     private static Configuration cfg = new Configuration();
 
-    public void writeJavaPoFile(String relativePath, SheetResult sheetResult){
+    public void writeJavaPoFile(String relativePath, TableResult tableResult){
 
         try {
             Template temp = null;
@@ -22,8 +26,9 @@ public class JavaPoGenerater {
 
             //设置freemaker 文件加载目录
             cfg.setDirectoryForTemplateLoading(loadTemplateFile.getParentFile());
+            String packageName = EnvParam.getJavaSqlPoDictPackage();
 
-            PoClassParam poClassParam = tranferPoClass(sheetResult);
+            PoClassParam poClassParam = tranferPoClass(tableResult);
             writeJavaFile(relativePath, poClassParam);
 
         }catch (Exception e){
@@ -31,11 +36,11 @@ public class JavaPoGenerater {
         }
 
     }
+
     private void writeJavaFile(String relativePath, PoClassParam poClassParam) throws FileNotFoundException {
 
-        String dirPath = EnvParam.getJavaDictPath();
+        String dirPath = EnvParam.getJavaSqlPoPath();
         String filePath = relativePath;
-        //这里需要转化下包名，还有excel路径
         filePath = FileUtils.getEndDestRootPath(filePath);
         try {
             new JavaPoWriter().writeFile(dirPath, filePath, cfg, poClassParam);
@@ -44,19 +49,19 @@ public class JavaPoGenerater {
         }
     }
 
-    private PoClassParam tranferPoClass(SheetResult sheetResult){
+    private PoClassParam tranferPoClass(TableResult tableResult){
         PoClassParam poClassParam = new PoClassParam();
-        String packgeName = EnvParam.getJavaDictPackage();
+        String packgeName = EnvParam.getJavaSqlPoDictPackage();
         poClassParam.setPackageName(packgeName);
-        poClassParam.setClassName(sheetResult.getSheetName());
+        poClassParam.setClassName(tableResult.getTableName());
 
         //生成字段
-        List<SheetCellHeader>  headers = sheetResult.getCellHeads();
-        for(SheetCellHeader sheetCellHeader: headers){
+        List<TableColumnDefinitionParam> tableColumnDefinitionParams = tableResult.getTableColumnDefinitionParamList();
+        for(TableColumnDefinitionParam tableColumnDefinitionParam: tableColumnDefinitionParams){
             FieldParam fieldParam = new FieldParam();
-            fieldParam.setFiledName(sheetCellHeader.getEnglishName());
-            fieldParam.setFiledType(sheetCellHeader.getFieldType());
-            fieldParam.setFileldComment(sheetCellHeader.getChineseName());
+            fieldParam.setFiledName(tableColumnDefinitionParam.getFiledName());
+            fieldParam.setFiledType(tableColumnDefinitionParam.getFiledType());
+            fieldParam.setFileldComment(tableColumnDefinitionParam.getFileldComment());
             poClassParam.addFieldParam(fieldParam);
         }
         return poClassParam;

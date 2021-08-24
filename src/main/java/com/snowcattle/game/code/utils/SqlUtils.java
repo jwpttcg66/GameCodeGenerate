@@ -9,22 +9,29 @@ public class SqlUtils {
 
         String fieldClass = "";
         if (columnName.startsWith("tinyint")) {
-            fieldClass = Short.class.getSimpleName();
+//            fieldClass = Short.class.getSimpleName();
+            fieldClass = "short";
         } else if (columnName.startsWith("int") || columnName.startsWith("smallint")) {
-            fieldClass = Integer.class.getSimpleName();
+//            fieldClass = Integer.class.getSimpleName();
+            fieldClass = "int";
         } else if (columnName.startsWith("bigint")) {
-            fieldClass = Long.class.getSimpleName();
+//            fieldClass = Long.class.getSimpleName();
+            fieldClass = "long";
         } else if (columnName.startsWith("float")) {
-            fieldClass = Float.class.getSimpleName();
+//            fieldClass = Float.class.getSimpleName();
+            fieldClass = "float";
         } else if (columnName.startsWith("double")) {
-            fieldClass = Double.class.getSimpleName();
+//            fieldClass = Double.class.getSimpleName();
+            fieldClass = "double";
         } else if (columnName.startsWith("time") || columnName.startsWith("date") || columnName.startsWith("datetime")
                 || columnName.startsWith("timestamp")) {
-            fieldClass = Date.class.getSimpleName();
+//            fieldClass = Date.class.getSimpleName();
+            fieldClass = "Date";
         } else if (columnName.startsWith("varchar") || columnName.startsWith("tindtext")
                 || columnName.startsWith("char")
                 || columnName.startsWith("clob") || columnName.startsWith("blob") || columnName.startsWith("json")) {
-            fieldClass = String.class.getSimpleName();
+//            fieldClass = String.class.getSimpleName();
+            fieldClass = "String";
         } else if (columnName.startsWith("decimal") || columnName.startsWith("number")) {
             //2018-11-22 lshz0088 建议对number类型增加int，long，BigDecimal的区分判断
             //如果startKh大于等于0，则表示有设置取值范围
@@ -47,10 +54,12 @@ public class SqlUtils {
                     //数字范围9位及一下用Integer，大的用Long
                     if (length <= 9) {
 //                        fieldClass = (isPackageType)?Integer.class.getSimpleName():"int";
-                        fieldClass = Integer.class.getSimpleName();
+//                        fieldClass = Integer.class.getSimpleName();
+                        fieldClass = "int";
                     } else {
 //                        fieldClass = (isPackageType)?Long.class.getSimpleName():"long";
-                        fieldClass = Long.class.getSimpleName();
+//                        fieldClass = Long.class.getSimpleName();
+                        fieldClass = "long";
                     }
                 } else {
                     //有小数位数一律使用BigDecimal
@@ -60,9 +69,11 @@ public class SqlUtils {
                 fieldClass = BigDecimal.class.getSimpleName();
             }
         } else if (columnName.startsWith("boolean")) {
-            fieldClass = Boolean.class.getSimpleName();
+//            fieldClass = Boolean.class.getSimpleName();
+            fieldClass = "boolean";
         } else {
-            fieldClass = String.class.getSimpleName();
+//            fieldClass = String.class.getSimpleName();
+            fieldClass = "String";
         }
 
         return fieldClass;
