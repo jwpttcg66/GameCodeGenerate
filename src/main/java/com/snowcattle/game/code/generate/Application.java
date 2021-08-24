@@ -15,7 +15,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -37,13 +36,19 @@ public class Application {
 		String cmd = args[0];
 
 		if(cmd.equals(StartCmdEnum.generateJson.toString())){
-			exportJSONAndJava(true, false);
+			xlsxExportJSONAndJava(true, false);
 		}else if(cmd.equals(StartCmdEnum.generateJavaPo.toString())){
-			exportJSONAndJava(false, true);
+			xlsxExportJSONAndJava(false, true);
 		}else if(cmd.equals(StartCmdEnum.generateJsonAndJavaPo.toString())){
-			exportJSONAndJava(true, true);
+			xlsxExportJSONAndJava(true, true);
 		}else if(cmd.equals(StartCmdEnum.generateaSqlPo.toString())){
 			exportSqlPo();
+		}else if(cmd.equals(StartCmdEnum.generateXmlJson.toString())){
+			xmlExportJSONAndJava(true, false);
+		}else if(cmd.equals(StartCmdEnum.generateXmlJavaPo.toString())){
+			xmlExportJSONAndJava(false, true);
+		}else if(cmd.equals(StartCmdEnum.generateXmlJsonAndJavaPo.toString())){
+			xmlExportJSONAndJava(true, true);
 		}
 	}
 
@@ -75,7 +80,7 @@ public class Application {
 
 	}
 
-	public static void exportJSONAndJava(boolean jsonFlag, boolean javaFlag) throws IOException, CheckException {
+	public static void xlsxExportJSONAndJava(boolean jsonFlag, boolean javaFlag) throws IOException, CheckException {
 		GlobalFileCheck globalFileCheck = new GlobalFileCheck();
 		String dirPath = EnvParam.getxlsPath();
 		String fileExtension = ".xlsx";
@@ -112,6 +117,46 @@ public class Application {
 				}
 
 			}
+		}
+	}
+
+	public static void xmlExportJSONAndJava(boolean jsonFlag, boolean javaFlag) throws IOException, CheckException {
+		GlobalFileCheck globalFileCheck = new GlobalFileCheck();
+		String dirPath = EnvParam.getxlsPath();
+		String fileExtension = ".xml";
+		Map<String, File> allFiles = FileUtils.recursiveFiles(dirPath, fileExtension);
+		for(String key: allFiles.keySet()){
+//			File file = allFiles.get(key);
+//			XSSFWorkBookExcelPraser xssfWorkBookExcelPraser = new XSSFWorkBookExcelPraser();
+//			xssfWorkBookExcelPraser.praseExcel(file.getPath());
+//			//解析所有sheetnew
+//			List<SheetResult> resultList = xssfWorkBookExcelPraser.getSheetResultList();
+//			for(SheetResult sheetResult: resultList){
+//				String sheetName = sheetResult.getSheetName();
+//				String newSheeTName = sheetName;
+//				if(jsonFlag){
+//					String fileEndName = ".json";
+//					newSheeTName = sheetName + fileEndName;
+//					String destFileRootPath = FileUtils.getFrontDestRootPath(key);
+//					if(globalFileCheck.isExsitFile(newSheeTName)){
+//						throw new CheckException(" newSheeTName: " + sheetName + " is exsit");
+//					}
+//					globalFileCheck.addFileName(newSheeTName);
+//					new JSonGenerater().writeJsonFile(destFileRootPath + newSheeTName, sheetResult);
+//				}
+//
+//				if(javaFlag) {
+//					String fileEndName = ".java";
+//					newSheeTName = sheetName + fileEndName;
+//					String destFileRootPath = FileUtils.getFrontDestRootPath(key);
+//					if(globalFileCheck.isExsitFile(newSheeTName)){
+//						throw new CheckException(" newSheeTName: " + sheetName + " is exsit");
+//					}
+//					globalFileCheck.addFileName(newSheeTName);
+//					new JavaPoGenerater().writeJavaPoFile(destFileRootPath + newSheeTName, sheetResult);
+//				}
+
+//			}
 		}
 	}
 
